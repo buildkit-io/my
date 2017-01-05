@@ -1,5 +1,5 @@
-<script src="https://cdn.auth0.com/js/lock/10.6/lock.min.js"></script>
-<script src="https://cdn.auth0.com/w2/auth0-6.7.js"></script>
+<script src="https://cdn.auth0.com/js/lock/10.8.1/lock.min.js"></script>
+<script src="https://cdn.auth0.com/w2/auth0-7.6.1.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
 <script>
   // Initialize Firebase
@@ -12,58 +12,51 @@
   };
   firebase.initializeApp(config);
 
-  function login() {
-    // Instantiate the lock and auth0 libraries
-    var lock = new Auth0Lock('nfjX9kv2qs1f9TVB22SuDnPiFA6ieY6M', 'buildkit.eu.auth0.com', {
-      auth: {
-        redirectUrl: 'https://my.buildkit.io/',
-        responseType: 'code',
-        params: {
-          scope: 'openid email' // Learn about scopes: https://auth0.com/docs/scopes
-        }
+  // Instantiate the lock and auth0 libraries
+  var lock = new Auth0Lock('nfjX9kv2qs1f9TVB22SuDnPiFA6ieY6M', 'buildkit.eu.auth0.com');
+  var auth0 = new Auth0({
+    domain: 'buildkit.eu.auth0.com',
+    clientID: 'nfjX9kv2qs1f9TVB22SuDnPiFA6ieY6M'
+  })
+
+  // listen to when the user gets authenticated and then save the profile
+  lock.on("authenticated", function(authResult) {
+    lock.getProfile(authResult.idToken, function(error, profile) {
+
+      if (error) {
+        // handle error
+        console.log(error);
+        return;
       }
-    });
-    var auth0 = new Auth0({
-      domain: 'buildkit.eu.auth0.com',
-      clientID: 'nfjX9kv2qs1f9TVB22SuDnPiFA6ieY6M'
-    })
 
-    // listen to when the user gets authenticated and then save the profile
-    lock.on("authenticated", function(authResult) {
-      lock.getProfile(authResult.idToken, function(error, profile) {
+      localStorage.setItem('idToken', authResult.idToken);
+      localStorage.setItem('profile', JSON.stringify(profile))
 
-        if (error) {
-          // handle error
-          console.log(error);
-          return;
+      // Set the options to retreive a firebase delegation token
+      var options = {
+        id_token: authResult.idToken,
+        api: 'firebase',
+        scope: 'openid name email displayName',
+        target: 'nfjX9kv2qs1f9TVB22SuDnPiFA6ieY6M'
+      };
+
+      // Make a call to the Auth0 '/delegate'
+      auth0.getDelegationToken(options, function(err, result) {
+        if (!err) {
+          // Exchange the delegate token for a Firebase auth token
+          firebase.auth().signInWithCustomToken(result.id_token).catch(function(error) {
+            console.log(error);
+          });
         }
-
-        localStorage.setItem('idToken', authResult.idToken);
-        localStorage.setItem('profile', JSON.stringify(profile))
-
-        // Set the options to retreive a firebase delegation token
-        var options = {
-          id_token: authResult.idToken,
-          api: 'firebase',
-          scope: 'openid name email displayName',
-          target: 'nfjX9kv2qs1f9TVB22SuDnPiFA6ieY6M'
-        };
-
-        // Make a call to the Auth0 '/delegate'
-        auth0.getDelegationToken(options, function(err, result) {
-          if (!err) {
-            // Exchange the delegate token for a Firebase auth token
-            firebase.auth().signInWithCustomToken(result.id_token).catch(function(error) {
-              console.log(error);
-            });
-          }
-          else {
-            console.log(err);
-          }
-        });
+        else {
+          console.log(err);
+        }
       });
     });
+  });
 
+
+  function login() {
     // Display the default lock widget
     lock.show();
   }
@@ -71,6 +64,7 @@
   // Finally, we'll implement a logout function to allow the user
   // to logout once they are done creating stories
   function logout() {
+    localStorage.removeItem('idToken');
     localStorage.removeItem('profile');
     firebase.auth().signOut().then(function() {
       console.log("Signout Successful")
