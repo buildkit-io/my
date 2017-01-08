@@ -35,7 +35,7 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" ng-app="bkApp">
 <div class="wrapper">
 
   <header class="main-header">
@@ -71,40 +71,9 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-          <img src="dist/img/avatar2.png" class="img-circle" alt="User Image">
-        </div>
-        <div class="pull-left info">
-          <p>Alexander Pierce</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-        </div>
-      </div>
+      <user></user>
       <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu">
-        <li class="header">MAIN NAVIGATION</li>
-        <li class="active treeview">
-          <a href="#">
-            <i class="fa fa-briefcase"></i> <span>Projects</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="active"><a href="#"><i class="fa fa-circle-o"></i> New Project</a></li>
-            <li>
-              <a href="#"><i class="fa fa-circle-o"></i> My Projects
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
+      <navigation></navigation>
     </section>
     <!-- /.sidebar -->
   </aside>
@@ -112,62 +81,10 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Projects
-        <small>Create a new project</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-briefcase"></i> Home</a></li>
-        <li class="active">Projects</li>
-      </ol>
-    </section>
+    <content-header></content-header>
 
     <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <!-- column -->
-        <div class="col-md-12">
-          <!-- general form elements -->
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">New Project</h3>
-            </div>
-            <!-- /.box-header -->
-            <!-- form start -->
-            <form role="form">
-              <div class="box-body">
-                <div class="form-group">
-                  <label for="projectName">Name</label>
-                  <input type="text"  class="form-control" id="projectName" placeholder="Enter project name">
-                </div>
-                <div class="form-group">
-                  <label for="projectUrl">URL</label>
-                  <div class="input-group">
-                    <span class="input-group-addon">http://</span>
-                    <input type="text" class="form-control" id="projectUrl" placeholder="hostname">
-                    <span class="input-group-addon">.bkusr.com</span>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label>Specification</label>
-                  <textarea class="form-control" rows="30" placeholder="version: '2'"></textarea>
-                  
-                  <p class="help-block">Enter a Docker Compose yml specification of the project.</p>
-                </div>
-              </div>
-              <!-- /.box-body -->
-
-              <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Create</button>
-              </div>
-            </form>
-          </div>
-          <!-- /.box -->
-        </div>
-        <!--/.col -->
-      </div>
-      <!-- /.row -->
+    <section class="content" ng-view>
     </section>
     <!-- /.content -->
   </div>
@@ -216,13 +133,24 @@
 <script src="plugins/fastclick/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/app.min.js"></script>
+<!-- AngularJS -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.min.js"></script>
 <!-- Auth0 Lock -->
 <script src="https://cdn.auth0.com/js/lock/10.8.1/lock.min.js"></script>
 <!-- Auth0 -->
 <script src="https://cdn.auth0.com/w2/auth0-7.6.1.min.js"></script>
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+<!-- AngularFire -->
+<script src="https://cdn.firebase.com/libs/angularfire/2.2.0/angularfire.min.js"></script>
 <!-- BuildKit App -->
 <script src="dist/js/buildkit.js"></script>
+<script src="app/app.module.js"></script>
+<script src="app/app.routes.js"></script>
+<script src="app/navigation/navigation.directive.js"></script>
+<script src="app/navigation/content-header.directive.js"></script>
+<script src="app/projects/projects.controller.js"></script>
+<script src="app/user/user.directive.js"></script>
 </body>
 </html>

@@ -1,0 +1,25 @@
+<ul class="sidebar-menu">
+    <li class="header">MAIN NAVIGATION</li>
+    <li class="active treeview">
+        <a href="#">
+            <i class="fa fa-briefcase"></i> <span>Projects</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li class="active"><a ng-href="#!/projects/new"><i class="fa fa-circle-o"></i> New Project</a></li>
+            <li>
+                <a href="#"><i class="fa fa-circle-o"></i> My Projects
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+                <ul ng-repeat="project in projects" class="treeview-menu">
+                    <li><a href="#"><i class="fa fa-circle-o"></i> {{project.name}}</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+      
