@@ -11,7 +11,7 @@
     };
     firebase.initializeApp(config);
 
-    // Instantiate the lock and auth0 libraries
+    /*// Instantiate the lock and auth0 libraries
     var lock = new Auth0Lock('nfjX9kv2qs1f9TVB22SuDnPiFA6ieY6M', 'buildkit.eu.auth0.com');
     var auth0 = new Auth0({
         domain: 'buildkit.eu.auth0.com',
@@ -77,5 +77,5 @@
         }, function(error) {
             console.log(error);
         });
-    }
+    }*/
 })(jQuery);

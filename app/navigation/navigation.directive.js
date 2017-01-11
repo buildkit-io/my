@@ -1,6 +1,25 @@
-angular.module("bkApp").controller('navigationController', ['$scope', '$route', '$firebaseArray', function($scope, $route, $firebaseArray) {
-  var ref = firebase.database().ref().child("projects");
-  $scope.projects = $firebaseArray(ref);
+angular.module("bkApp").controller('navigationController', ['$scope', '$route', '$routeParams', 'projectsService', function($scope, $route, $routeParams, projectsService) {
+  projectsService.getProjects().then(function(projects) {
+    $scope.projects = projects;
+  }).catch(function(error) {
+    console.log(error);
+  });
+  var updateActiveTab = function() {
+    // dynamic
+    if ($routeParams.hostname) {
+      $scope.activeTab = $routeParams.hostname;
+    }
+    else {
+      $scope.activeTab = $route.current.activeTab;
+    }
+  };
+
+  $scope.$on('$routeChangeSuccess', function(ev, newRoute) {
+    updateActiveTab();
+  });
+
+  updateActiveTab();
+
 }]).directive('navigation', function() {
   return {
     restrict: 'E',

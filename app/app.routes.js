@@ -7,9 +7,11 @@ angular.module("bkApp").config(function($routeProvider, $locationProvider) {
             pageTitle: 'Create a new project',
             activeTab: 'newProject'
         })
-        .when("/projects/:id/view", {
+        .when("/projects/:hostname/view", {
             controller: 'projectsController',
-            templateUrl: "app/projects/view.html"
+            templateUrl: "app/projects/view.html",
+            headerTitle: 'Projects',
+            pageTitle: null
         })
         .otherwise({
             redirectTo: '/projects/new'

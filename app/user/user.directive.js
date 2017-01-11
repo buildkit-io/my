@@ -1,9 +1,8 @@
-angular.module("bkApp").controller('userController', ['$scope', '$firebaseAuth', function($scope,$firebaseAuth) {
-  $scope.profile = angular.fromJson(localStorage.getItem('profile'));
-  
-  // $firebaseAuth.onAuth(function() {
-  //   $scope.profile = localStorage.getItem('profile');
-  // });
+angular.module("bkApp").controller('userController', ['$scope', 'userService', function($scope, userService) {
+  userService.getProfile().then(function(profile) {
+    $scope.profile = profile;
+  });
+
 }]).directive('user', function() {
   return {
     restrict: 'E',
