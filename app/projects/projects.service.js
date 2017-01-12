@@ -38,7 +38,16 @@ angular.module("bkApp").factory('projectsService', ['$q', '$location', '$firebas
 
         addProject: function(newProject) {
             var deferred = $q.defer();
-            firebase.database().ref().child("projects").child(newProject.hostname).set(newProject).then(function(loadedProjects) {
+            newProject.createdBy = userService.getUid();
+            newProject.createdAt = firebase.database.ServerValue.TIMESTAMP;
+            newProject.status = "created";
+            var mergedUpdate = {};
+            mergedUpdate[ 'users/' + newProject.createdBy + '/projects/' + newProject.hostname ] = true;
+            mergedUpdate[ 'projects/' + newProject.hostname ] = newProject;
+            mergedUpdate[ 'hostnames/' + newProject.hostname ] = true;
+            mergedUpdate[ 'tasks/' + newProject.hostname ] = newProject;
+            
+            firebase.database().ref().update(mergedUpdate).then(function() {
                     deferred.resolve();
                 })
                 .catch(function(error) {
@@ -48,17 +57,29 @@ angular.module("bkApp").factory('projectsService', ['$q', '$location', '$firebas
         },
 
         deleteProject: function(hostname) {
-            var deferred = $q.defer(),
-                projectIndex = projects.$indexFor(hostname);
+            var deferred = $q.defer();
+            //     projectIndex = projects.$indexFor(hostname);
 
-            if (projectIndex != -1) {
-                projects.$remove(projectIndex).then(function(deletedRecord) {
-                    deferred.resolve(deletedRecord);
+            // if (projectIndex != -1) {
+            //     projects.$remove(projectIndex).then(function(deletedRecord) {
+            //         deferred.resolve(deletedRecord);
+            //     });
+            // }
+            // else {
+            //     deferred.reject();
+            // }
+            var mergedUpdate = {};
+            mergedUpdate[ 'users/' + userService.getUid() + '/projects/' + hostname] = null;
+            mergedUpdate[ 'projects/' + hostname ] = null;
+            mergedUpdate[ 'hostnames/' + hostname ] = null;
+
+            firebase.database().ref().update(mergedUpdate).then(function() {
+                    deferred.resolve();
+                })
+                .catch(function(error) {
+                    deferred.reject(error);
                 });
-            }
-            else {
-                deferred.reject();
-            }
+            return deferred.promise;
             return deferred.promise;
         }
     };

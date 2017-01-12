@@ -1,6 +1,6 @@
 angular.module("bkApp").factory('userService', ['$q', '$location', '$firebaseArray', '$firebaseAuth', function($q, $location, $firebaseArray, $firebaseAuth) {
-    var ref = firebase.database().ref().child("users"),
-        users = $firebaseArray(ref),
+    var ref = firebase.database().ref().child("hostnames"),
+        hostnames = $firebaseArray(ref),
         authObj = $firebaseAuth();
 
     var lock = new Auth0Lock('nfjX9kv2qs1f9TVB22SuDnPiFA6ieY6M', 'buildkit.eu.auth0.com', {
@@ -39,8 +39,8 @@ angular.module("bkApp").factory('userService', ['$q', '$location', '$firebaseArr
     lock.on("hash_parsed", function(authResult) {
         if (authResult == null) {
             // not a login redirect
-            users.$loaded()
-                .then(function(resolvedUsers) {
+            hostnames.$loaded()
+                .then(function() {
                     console.log("Logged in as: " + authObj.$getAuth().uid);
                 })
                 .catch(function(error) {
@@ -94,6 +94,9 @@ angular.module("bkApp").factory('userService', ['$q', '$location', '$firebaseArr
                 deferred.reject(error);
             });
             return deferred.promise;
+        },
+        getUid: function() {
+            return authObj.$getAuth().uid;
         }
     };
 }]);
