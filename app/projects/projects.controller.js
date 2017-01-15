@@ -1,7 +1,8 @@
+/* global angular Project */
 angular.module("bkApp").controller('projectsController', ['$scope', '$routeParams', '$location', 'projectsService',
     function($scope, $routeParams, $location, projectsService) {
         $scope.hostname = $routeParams.hostname;
-        $scope.newProject = {};
+        $scope.newProject = new Project();
 
         if ($scope.hostname) {
             projectsService.getProject($scope.hostname).then(function(loadedProject) {

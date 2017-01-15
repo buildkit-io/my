@@ -1,6 +1,7 @@
-angular.module("bkApp").factory('userService', ['$q', '$location', '$firebaseArray', '$firebaseAuth', function($q, $location, $firebaseArray, $firebaseAuth) {
-    var ref = firebase.database().ref().child("hostnames"),
-        hostnames = $firebaseArray(ref),
+/* global angular Auth0Lock Auth0 localStorage */
+angular.module("bkApp").factory('userService', ['$q', '$location', '$firebaseArray', '$firebaseAuth', 'firebaseService',
+function($q, $location, $firebaseArray, $firebaseAuth, firebaseService) {
+    var hostnames = $firebaseArray(firebaseService.getChildRef("hostnames")),
         authObj = $firebaseAuth();
 
     var lock = new Auth0Lock('nfjX9kv2qs1f9TVB22SuDnPiFA6ieY6M', 'buildkit.eu.auth0.com', {
@@ -62,7 +63,7 @@ angular.module("bkApp").factory('userService', ['$q', '$location', '$firebaseArr
                     return;
                 }
                 localStorage.setItem('idToken', authResult.idToken);
-                localStorage.setItem('profile', JSON.stringify(profile))
+                localStorage.setItem('profile', JSON.stringify(profile));
 
                 exchangeToken(authResult.idToken);
             });

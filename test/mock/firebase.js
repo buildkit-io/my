@@ -1,12 +1,2 @@
-var firebase = {
-    database: function() {
-        return {
-            ref: function() {
-                return {
-                    child: function() {}
-                }
-            }
-        };
-    }
-};
+/* global angular */
 angular.module('firebase', []);
