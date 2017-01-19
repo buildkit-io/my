@@ -19,7 +19,29 @@
                     <li ng-class="{active: activeTab == project.hostname}"><a ng-href="#!/projects/{{project.hostname}}/view"><i class="fa fa-circle-o"></i> {{project.name}}</a></li>
                 </ul>
             </li>
+            <li ng-class="{active: activeTab == 'Shared projects'}">
+                <a href=""><i class="fa fa-circle-o"></i> Shared Projects
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+            </li>
         </ul>
     </li>
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-users"></i> <span>My Teams</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+    </li>
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-cart-plus"></i> <span>BuildKit Market</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+    </li>
 </ul>
-      
