@@ -75,12 +75,12 @@ function($q, $location, $firebaseArray, $firebaseAuth, firebaseService) {
             var deferred = $q.defer(),
                 offHolder = {};
             if (authObj.$getAuth()) {
-                deferred.resolve();
+                deferred.resolve(authObj.$getAuth().uid);
             }
             else {
                 offHolder.offAuth = authObj.$onAuthStateChanged(function(authData) {
                     if (authData) {
-                        deferred.resolve();
+                        deferred.resolve(authObj.$getAuth().uid);
                         this.offAuth();
                     }
                 }, offHolder);
@@ -91,6 +91,15 @@ function($q, $location, $firebaseArray, $firebaseAuth, firebaseService) {
             var deferred = $q.defer();
             this.waitForAuth().then(function() {
                 deferred.resolve(angular.fromJson(localStorage.getItem('profile')));
+            }).catch(function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        },
+        getUser: function() {
+            var deferred = $q.defer();
+            this.waitForAuth().then(function(uid) {
+                deferred.resolve(firebaseService.getChildRef("users/"+uid));
             }).catch(function(error) {
                 deferred.reject(error);
             });

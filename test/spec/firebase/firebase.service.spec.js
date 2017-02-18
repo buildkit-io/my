@@ -1,7 +1,8 @@
 /* global inject expect */
 describe("Firebase Service", function() {
     var firebaseService,
-        firebase = {};
+    firebase = {},
+    $q;
 
     firebase.database = function(app) {
         return new firebase.database.Database();
@@ -12,10 +13,38 @@ describe("Firebase Service", function() {
 
     // Setup the mock service in an anonymous module.
     beforeEach(module(function($provide) {
-
+        $provide.value('$firebaseArray', function(data) {
+            return {
+                $loaded: function() {
+                    return {
+                        then: function(fn) {
+                            fn(data);
+                            return {
+                                catch: function() {}
+                            };
+                        }
+                    };
+                }
+            };
+        });
+        $provide.value('$firebaseObject', function(data) {
+            return {
+                $loaded: function() {
+                    return {
+                        then: function(fn) {
+                            fn(data);
+                            return {
+                                catch: function() {}
+                            };
+                        }
+                    };
+                }
+            };
+        });
     }));
 
-    beforeEach(inject(function(_firebaseService_) {
+    beforeEach(inject(function(_$q_, _firebaseService_) {
+        $q = _$q_;
         firebaseService = _firebaseService_;
     }));
 
@@ -40,17 +69,13 @@ describe("Firebase Service", function() {
 
     it("gets child ref", function() {
         var childRef = {};
-        firebase.database.Database.prototype.ref = function(path) {
-            return {
-                child: function(name) {
-                    if (name === "test") {
-                        return childRef;
-                    }
-                    else {
-                        return null;
-                    }
-                }
-            };
+        firebase.database.Database.prototype.ref = function(name) {
+            if (name === "test") {
+                return childRef;
+            }
+            else {
+                return null;
+            }
         };
         window.firebase = firebase;
         expect(firebaseService.getChildRef("test")).toEqual(childRef);
@@ -76,6 +101,23 @@ describe("Firebase Service", function() {
         };
         window.firebase = firebase;
         expect(firebaseService.update("test update")).toEqual("test update");
+        window.firebase = null;
+    });
+
+    it("gets object", function() {
+        var childRef = {};
+        firebase.database.Database.prototype.ref = function(name) {
+            if (name === "test") {
+                return childRef;
+            }
+            else {
+                return null;
+            }
+        };
+        window.firebase = firebase;
+        firebaseService.getObject("test").then(function(result) {
+            expect(result).toEqual(childRef);
+        });
         window.firebase = null;
     });
 

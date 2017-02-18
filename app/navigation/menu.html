@@ -1,6 +1,6 @@
 <ul class="sidebar-menu">
     <li class="header">MAIN NAVIGATION</li>
-    <li class="active treeview">
+    <li class="treeview" ng-class="{active: activeTab == 'newProject' || isProject}">
         <a href="#">
             <i class="fa fa-briefcase"></i> <span>Projects</span>
             <span class="pull-right-container">
@@ -9,7 +9,7 @@
         </a>
         <ul class="treeview-menu">
             <li ng-class="{active: activeTab == 'newProject'}"><a ng-href="#!/projects/new"><i class="fa fa-circle-o"></i> New Project</a></li>
-            <li ng-class="{active: activeTab != 'newProject'}">
+            <li ng-class="{active: isProject}">
                 <a href=""><i class="fa fa-circle-o"></i> My Projects
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
@@ -36,11 +36,11 @@
             </span>
         </a>
     </li>
-    <li class="treeview">
-        <a href="#">
+    <li class="treeview" ng-class="{active: activeTab == 'buildkitMarket'}">
+        <a ng-href="#!/market">
             <i class="fa fa-cart-plus"></i> <span>BuildKit Market</span>
             <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+              <small class="label pull-right bg-green">new</small>
             </span>
         </a>
     </li>

@@ -2,12 +2,12 @@
 angular.module("bkApp").controller('projectsController', ['$scope', '$routeParams', '$location', 'projectsService',
     function($scope, $routeParams, $location, projectsService) {
         $scope.hostname = $routeParams.hostname;
-        $scope.newProject = new Project();
+        $scope.project;
 
         if ($scope.hostname) {
             projectsService.getProject($scope.hostname).then(function(loadedProject) {
                 if (loadedProject) {
-                    $scope.currentProject = loadedProject;
+                    $scope.project = loadedProject;
                 }
                 else {
                     $location.path('/projects/new');
@@ -17,11 +17,13 @@ angular.module("bkApp").controller('projectsController', ['$scope', '$routeParam
                 console.log(error);
                 $location.path('/projects/new');
             });
+        } else {
+            $scope.project = new Project();
         }
 
         $scope.addProject = function() {
-            projectsService.addProject($scope.newProject).then(function() {
-                $location.path('/projects/' + $scope.newProject.hostname + '/view');
+            projectsService.addProject($scope.project).then(function() {
+                $location.path('/projects/' + $scope.project.hostname + '/view');
             }).catch(console.error);
         };
 
@@ -36,8 +38,6 @@ angular.module("bkApp").controller('projectsController', ['$scope', '$routeParam
                     $location.path('/projects/new');
                 }
             }).catch(console.error);
-            $scope.currentProject = {};
-
         };
     }
 ]);

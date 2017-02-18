@@ -1,0 +1,48 @@
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">{{buildkitData.title}}</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="row">
+            <div class="col-sm-12 col-md-6" ng-bind-html="buildkitData.description | unsafe"></div>
+            <div class="col-sm-12 col-md-6">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="item" ng-class="$index == 0?'active':''" ng-repeat="screenshot in buildkitData.screenshots">
+                            <img ng-src="{{screenshot.url}}" alt="{{screenshot.title}}">
+                            <div class="carousel-caption">{{screenshot.title}}</div>
+                        </div>
+                    </div>
+                    <!-- <a class="left carousel-control" href="#carousel-example-generic"
+                    data-slide="prev">-->
+                    <!-- <span class="fa fa-angle-left"></span>-->
+                    <!--</a>-->
+                    <!-- <a class="right carousel-control" href="#carousel-example-generic"
+                    data-slide="next">-->
+                    <!-- <span class="fa fa-angle-right"></span>-->
+                    <!--</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer no-padding">
+        <div class="mailbox-controls">
+            <button type="button" class="btn btn-social-icon" ng-repeat="tool in buildkitData.tools"
+            ng-class="tool.background" alt="{{tool.title}}" style="margin-right:3px">
+                <i class="fa" ng-class="tool.icon"></i>
+            </button>
+            <div class="pull-right">
+                <button type="button" class="btn btn-success">
+                    <i class="glyphicon glyphicon-chevron-right"></i>Create Project</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /. box -->

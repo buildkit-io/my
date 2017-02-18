@@ -3,17 +3,20 @@ angular.module("bkApp").config(function($routeProvider, $locationProvider) {
         .when("/projects/new", {
             controller: 'projectsController',
             templateUrl: "app/projects/new.html",
-            headerTitle: 'Projects',
-            pageTitle: 'Create a new project',
             activeTab: 'newProject'
         })
         .when("/projects/:hostname/view", {
             controller: 'projectsController',
             templateUrl: "app/projects/view.html",
-            headerTitle: 'Projects',
+            isProject: true,
             pageTitle: null
         })
+        .when("/market", {
+            controller: 'marketController',
+            templateUrl: "app/market/view.html",
+            activeTab: 'buildkitMarket'
+        })
         .otherwise({
-            redirectTo: '/projects/new'
+            redirectTo: '/market'
         });
 });

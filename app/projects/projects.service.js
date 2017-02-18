@@ -1,91 +1,105 @@
 /* global angular firebase */
 angular.module("bkApp").factory('projectsService', ['$q', '$location', '$firebaseArray', 'userService', 'tasksService', 'firebaseService',
-    function($q, $location, $firebaseArray, userService, tasksService, firebaseService) {
-        var ref = firebaseService.getChildRef("projects"),
-            projects = null;
 
-        return {
-            getProjects: function() {
-                var deferred = $q.defer();
-                userService.waitForAuth().then(function() {
-                    if (projects == null) {
-                        projects = $firebaseArray(ref);
-                    }
-                    projects.$loaded()
-                        .then(function(loadedProjects) {
-                            deferred.resolve(loadedProjects);
-                        })
-                        .catch(function(error) {
-                            deferred.reject(error);
+function($q, $location, $firebaseArray, userService, tasksService,
+firebaseService) {
+    var projects;
+
+    return {
+        getProjects: function() {
+            var deferred = $q.defer(),
+                projectsService = this;
+            userService.waitForAuth().then(function(uid) {
+                if (projects) {
+                    deferred.resolve(projects);
+                }
+                else {
+                    var projectsList = $firebaseArray(
+                    firebaseService.getChildRef("users/" + uid + "/projects"));
+                    projectsList.$loaded().then(function(loadedProjects) {
+                        projects = [];
+                        loadedProjects.forEach(function(project) {
+                            projectsService.getProject(project.$id).then(function(loadedProject) {
+                                projects.push(loadedProject);
+                            });
                         });
-                });
-                return deferred.promise;
-            },
-
-            getProject: function(hostname) {
-                var deferred = $q.defer();
-                this.getProjects()
-                    .then(function(loadedProjects) {
-                        deferred.resolve(loadedProjects.$getRecord(hostname));
-                    })
-                    .catch(function(error) {
+                        deferred.resolve(projects);
+                    }).
+                    catch (function(error) {
                         deferred.reject(error);
                     });
-                return deferred.promise;
-            },
+                    projectsList.$watch(function(event) {
+                        if (event.event === "child_added") {
+                            projectsService.getProject(event.key).then(function(loadedProject) {
+                                projects.push(loadedProject);
+                            });
+                        }
+                        else if (event.event === "child_removed") {
+                            for (var i = 0; i < projects.length; i++) {
+                                if (projects[i].$id === event.key) {
+                                    projects.splice(i, 1);
+                                    break;
+                                }
+                            }
 
-            hasProjects: function() {
-                return projects && projects.length > 0;
-            },
+                        }
+                    });
+                }
+            });
+            return deferred.promise;
+        },
 
-            addProject: function(newProject) {
-                var deferred = $q.defer();
-                userService.waitForAuth().then(function() {
-                    newProject.createdAt = firebaseService.getServerTime();
-                    newProject.createdBy = userService.getUid();
-
-                    var mergedUpdate = {};
-                    mergedUpdate['users/' + newProject.createdBy + '/projects/' + newProject.hostname] = true;
-                    mergedUpdate['projects/' + newProject.hostname] = newProject;
-                    mergedUpdate['hostnames/' + newProject.hostname] = true;
-                    mergedUpdate['tasks/' + firebaseService.getId()] = tasksService.createProject(newProject);
-
-                    firebaseService.update(mergedUpdate).then(function() {
-                            deferred.resolve();
-                        })
-                        .catch(function(error) {
-                            deferred.reject(error);
-                        });
+        getProject: function(hostname) {
+            var deferred = $q.defer();
+            userService.waitForAuth().then(function() {
+                firebaseService.getObject("projects/" + hostname).then(function(project) {
+                    deferred.resolve(project);
                 });
+            });
+            return deferred.promise;
+        },
 
-                return deferred.promise;
-            },
+        hasProjects: function() {
+            return projects && projects.length > 0;
+        },
 
-            deleteProject: function(hostname) {
-                var deferred = $q.defer();
-                //     projectIndex = projects.$indexFor(hostname);
+        addProject: function(newProject) {
+            var deferred = $q.defer();
+            userService.waitForAuth().then(function() {
+                newProject.createdAt = firebaseService.getServerTime();
+                newProject.createdBy = userService.getUid();
 
-                // if (projectIndex != -1) {
-                //     projects.$remove(projectIndex).then(function(deletedRecord) {
-                //         deferred.resolve(deletedRecord);
-                //     });
-                // }
-                // else {
-                //     deferred.reject();
-                // }
                 var mergedUpdate = {};
-                mergedUpdate['users/' + userService.getUid() + '/projects/' + hostname] = null;
-                mergedUpdate['projects/' + hostname] = null;
-                mergedUpdate['hostnames/' + hostname] = null;
+                mergedUpdate['users/' + newProject.createdBy + '/projects/' + newProject.hostname] = true;
+                mergedUpdate['projects/' + newProject.hostname] = newProject;
+                mergedUpdate['hostnames/' + newProject.hostname] = true;
+                mergedUpdate['tasks/' + firebaseService.getId()] = tasksService.createProject(newProject);
 
                 firebaseService.update(mergedUpdate).then(function() {
-                        deferred.resolve();
-                    })
-                    .catch(function(error) {
-                        deferred.reject(error);
-                    });
-                return deferred.promise;
-            }
-        };
-    }
-]);
+                    deferred.resolve();
+                }).
+                catch (function(error) {
+                    deferred.reject(error);
+                });
+            });
+
+            return deferred.promise;
+        },
+
+        deleteProject: function(hostname) {
+            var deferred = $q.defer();
+            var mergedUpdate = {};
+            mergedUpdate['users/' + userService.getUid() + '/projects/' + hostname] = null;
+            mergedUpdate['projects/' + hostname] = null;
+            mergedUpdate['hostnames/' + hostname] = null;
+
+            firebaseService.update(mergedUpdate).then(function() {
+                deferred.resolve();
+            }).
+            catch (function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        }
+    };
+}]);

@@ -27,7 +27,9 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-
+  
+  <link rel="stylesheet" href="dist/css/buildkit.css">
+  
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -42,7 +44,7 @@
     <!-- Logo -->
     <a href="index.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>B</b>Kt</span>
+      <span class="logo-mini"><b>B</b>K</span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>Build</b>Kit</span>
     </a>
@@ -79,14 +81,7 @@
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <content-header></content-header>
-
-    <!-- Main content -->
-    <section class="content" ng-view>
-    </section>
-    <!-- /.content -->
+  <div class="content-wrapper" ng-view>
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
@@ -147,6 +142,7 @@
 <!-- BuildKit App -->
 <script src="dist/js/buildkit.js"></script>
 <script src="app/app.module.js"></script>
+<script src="app/app.config.js"></script>
 <script src="app/app.routes.js"></script>
 <script src="app/firebase/firebase.service.js"></script>
 <script src="app/navigation/navigation.directive.js"></script>
@@ -158,5 +154,9 @@
 <script src="app/user/user.directive.js"></script>
 <script src="app/tasks/task.js"></script>
 <script src="app/tasks/tasks.service.js"></script>
+<script src="app/market/buildkit.js"></script>
+<script src="app/market/market.controller.js"></script>
+<script src="app/market/buildkit.directive.js"></script>
+
 </body>
 </html>

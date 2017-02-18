@@ -19,7 +19,7 @@ describe("User Service", function() {
         userService = _userService_;
     }));
 
-    it("exists", function() {
+    it("returns user", function() {
         expect(userService).toBeDefined();
     });
 });
