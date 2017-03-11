@@ -1,8 +1,15 @@
 /* global uuid */
+
 function Task(action, project) {
     this.action = action;
-    this.server_queue = project?project.server_queue:null;
-    this.project = project;
+    this.server_queue = project ? project.server_queue : null;
+    this.project = {
+        hostname: project.hostname,
+        spec: project.spec,
+        buildkit: project.buildkit,
+        server_queue: project.server_queue,
+        createdBy: project.createdBy
+    };
     this.status = Task.StatusTypes.PENDING;
     this.createdAt = "";
     this.logs = [];

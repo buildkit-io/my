@@ -45,8 +45,6 @@ describe("Tasks Service", function() {
         expect(newTask).toBeDefined();
         expect(newTask.action).toEqual(Task.ActionTypes.START);
         expect(newTask.project.hostname).toEqual(project.hostname);
-        // start task doesn't need full project
-        expect(newTask.project.test).toBeUndefined();
     });
     
     it("creates a task with action RESTART given a project", function() {
@@ -63,8 +61,6 @@ describe("Tasks Service", function() {
         expect(newTask).toBeDefined();
         expect(newTask.action).toEqual(Task.ActionTypes.RESTART);
         expect(newTask.project.hostname).toEqual(project.hostname);
-        // restart task doesn't need full project
-        expect(newTask.project.test).toBeUndefined();
     });
     
     it("creates a task with action STOP given a project", function() {
@@ -82,8 +78,6 @@ describe("Tasks Service", function() {
         expect(newTask).toBeDefined();
         expect(newTask.action).toEqual(Task.ActionTypes.STOP);
         expect(newTask.project.hostname).toEqual(project.hostname);
-        // stop task doesn't need full project
-        expect(newTask.project.test).toBeUndefined();
     });
     
     it("creates a task with action DELETE given a project", function() {
@@ -100,8 +94,6 @@ describe("Tasks Service", function() {
         expect(newTask).toBeDefined();
         expect(newTask.action).toEqual(Task.ActionTypes.DELETE);
         expect(newTask.project.hostname).toEqual(project.hostname);
-        // delete task doesn't need full project
-        expect(newTask.project.test).toBeUndefined();
     });
     
     it("gets a list of tasks given a hostname", function() {

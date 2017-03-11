@@ -10,15 +10,11 @@
                     <th>Started</th>
                     <th>Task</th>
                     <th>Status</th>
-                    <th></th>
                 </tr>
                 <tr ng-repeat="task in $ctrl.tasks | orderBy:'createdAt'">
                     <td>{{task.createdAt | date:'medium'}}</td>
                     <td>{{task.action}}</td>
                     <td> <span class="label" ng-class="$ctrl.getClass(task)">{{task.status}}</span></td>
-                    <td>
-                        <button type="button" class="btn btn-default btn-sm" ng-if="task.status=='pending'" ng-click="$ctrl.cancelTask(task)"><i class="fa fa-trash-o"></i></button>
-                    </td>
                 </tr>
                 </tr>
             </tbody>
