@@ -23,26 +23,26 @@ firebaseService) {
                                 projects.push(loadedProject);
                             });
                         });
+                        projectsList.$watch(function(event) {
+                            if (event.event === "child_added") {
+                                projectsService.getProject(event.key).then(function(loadedProject) {
+                                    projects.push(loadedProject);
+                                });
+                            }
+                            else if (event.event === "child_removed") {
+                                for (var i = 0; i < projects.length; i++) {
+                                    if (projects[i].$id === event.key) {
+                                        projects.splice(i, 1);
+                                        break;
+                                    }
+                                }
+
+                            }
+                        });
                         deferred.resolve(projects);
                     }).
                     catch (function(error) {
                         deferred.reject(error);
-                    });
-                    projectsList.$watch(function(event) {
-                        if (event.event === "child_added") {
-                            projectsService.getProject(event.key).then(function(loadedProject) {
-                                projects.push(loadedProject);
-                            });
-                        }
-                        else if (event.event === "child_removed") {
-                            for (var i = 0; i < projects.length; i++) {
-                                if (projects[i].$id === event.key) {
-                                    projects.splice(i, 1);
-                                    break;
-                                }
-                            }
-
-                        }
                     });
                 }
             });
@@ -53,7 +53,7 @@ firebaseService) {
             var deferred = $q.defer();
             userService.waitForAuth().then(function() {
                 firebaseService.getObject("projects/" + hostname).then(function(project) {
-                    deferred.resolve(project);
+                    deferred.resolve(Object.assign(new Project(), project));
                 });
             });
             return deferred.promise;

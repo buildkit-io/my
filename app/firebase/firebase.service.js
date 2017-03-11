@@ -19,6 +19,12 @@ angular.module("bkApp").factory('firebaseService', ['$q', '$firebaseArray',
         },
         getArray: function(path) {
             return $firebaseArray(this.getChildRef(path)).$loaded();
+        },
+        getArrayRef: function(path) {
+            return $firebaseArray(this.getChildRef(path));
+        },
+        addToArray: function(path, obj) {
+            return $firebaseArray(this.getChildRef(path)).$add(obj);
         }
     };
 }]);

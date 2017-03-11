@@ -1,0 +1,28 @@
+<div class="box box-info">
+    <div class="box-header with-border">
+        <i class="fa fa-info"></i>
+        <h3 class="box-title">Tasks</h3>
+    </div>
+    <div class="box-body">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Started</th>
+                    <th>Task</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="task in $ctrl.tasks | orderBy:'createdAt'">
+                    <td>{{task.createdAt | date:'medium'}}</td>
+                    <td>{{task.action}}</td>
+                    <td> <span class="label" ng-class="$ctrl.getClass(task)">{{task.status}}</span></td>
+                    <td>
+                        <button type="button" class="btn btn-default btn-sm" ng-if="task.status=='pending'" ng-click="$ctrl.cancelTask(task)"><i class="fa fa-trash-o"></i></button>
+                    </td>
+                </tr>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- /.box -->
