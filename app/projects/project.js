@@ -32,38 +32,3 @@ Object.freeze(Project.StateTypes);
 Project.prototype = {
     constructor: Project
 };
-
-Project.prototype.getState = function() {
-    switch (this.status) {
-    case Project.StatusTypes.RUNNING:
-        return Project.StateTypes.OK;
-    case Project.StatusTypes.STARTING:
-    case Project.StatusTypes.STOPPING:
-    case Project.StatusTypes.RESTARTING:
-        return Project.StateTypes.WARNING;
-    case Project.StatusTypes.FAILED:
-        return Project.StateTypes.ERROR;
-    default:
-        return Project.StateTypes.UNKNOWN;
-    }
-};
-
-Project.prototype.canStart = function() {
-    return (this.status === Project.StatusTypes.STOPPED || this.status === Project.StatusTypes.FAILED) && !this.hasTasksInProgress();
-};
-
-Project.prototype.canStop = function() {
-    return (this.status === Project.StatusTypes.RUNNING || this.status === Project.StatusTypes.FAILED) && !this.hasTasksInProgress();
-};
-
-Project.prototype.hasTasksInProgress = function() {
-    if (!this.tasks) {
-        return false;
-    }
-    for (var key in this.tasks) {
-        if (this.tasks[key].status === Task.StatusTypes.PENDING || this.tasks[key].status === Task.StatusTypes.IN_PROGRESS) {
-            return true;
-        }
-    }
-    return false;
-};

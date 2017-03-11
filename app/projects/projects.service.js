@@ -53,7 +53,7 @@ firebaseService) {
             var deferred = $q.defer();
             userService.waitForAuth().then(function() {
                 firebaseService.getObject("projects/" + hostname).then(function(project) {
-                    deferred.resolve(Object.assign(new Project(), project));
+                    deferred.resolve(project);
                 });
             });
             return deferred.promise;

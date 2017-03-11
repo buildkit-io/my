@@ -5,16 +5,16 @@
         <h3 class="box-title">Project Actions</h3>
     </div>
     <div class="box-body text-center">
-        <a class="btn btn-app" ng-class="project.canStart()?'':'disabled'" ng-click="startProject()">
+        <a class="btn btn-app" ng-class="canStart()?'':'disabled'" ng-click="startProject()">
                     <i class="fa fa-play"></i> Start
                 </a>
-        <a class="btn btn-app" ng-class="project.canStop()?'':'disabled'" ng-click="restartProject()">
+        <a class="btn btn-app" ng-class="canStop()?'':'disabled'" ng-click="restartProject()">
                     <i class="fa fa-repeat"></i> Restart
                 </a>
-        <a class="btn btn-app" ng-class="project.canStop()?'':'disabled'"  ng-click="stopProject()">
+        <a class="btn btn-app" ng-class="canStop()?'':'disabled'"  ng-click="stopProject()">
                     <i class="fa fa-stop"></i> Stop
                 </a>
-        <a class="btn btn-app" ng-class="project.canStop()?'':'disabled'" ng-click="deleteProject()">
+        <a class="btn btn-app" ng-class="canStart()?'':'disabled'" ng-click="deleteProject()">
                     <i class="fa fa-remove"></i> Delete
                 </a>
     </div>
