@@ -28,13 +28,6 @@ function($scope, $routeParams, $location, projectsService, tasksService) {
         }
     }
 
-    $scope.addProject = function() {
-        projectsService.addProject($scope.project).then(function() {
-            $location.path('/projects/' + $scope.project.hostname + '/view');
-        }).
-        catch (console.error);
-    };
-
     $scope.deleteProject = function() {
         projectsService.deleteProject($scope.hostname).then(function() {
             // naviage to new project
