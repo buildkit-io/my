@@ -23,7 +23,7 @@
                         <i class="fa fa-docker"></i>
                     </div>
                     <a href="{{getSecureUrl(container)}}" class="small-box-footer" target="_blank" ng-if="isSecure(container)">{{getSecureUrl(container)}} <i class="fa fa-arrow-circle-right"></i></a>
-                    <a class="small-box-footer" ng-if="!isSecure(container) && !isPublic(container)">:{{getPrivatePort()}} <i class="fa fa-plug"></i></a>
+                    <a class="small-box-footer" ng-if="!isSecure(container) && !isPublic(container)">:{{getPrivatePort(container)}} <i class="fa fa-plug"></i></a>
                     <a href="{{getPublicUrl()}}" ng-if="!isSecure(container) && isPublic(container)" target="_blank" class="small-box-footer">{{getPublicUrl()}} <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
