@@ -1,3 +1,4 @@
+/*globals angular */
 angular.module("bkApp").controller('projectActionsController', ['$scope', 'tasksService', function($scope, tasksService) {
 
     $scope.startProject = function() {

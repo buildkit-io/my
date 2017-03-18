@@ -1,3 +1,5 @@
+/*eslint-env jquery */
+/*globals angular */
 angular.module("bkApp").controller('buildkitController', ['$scope', '$location', 'projectsService', function($scope, $location, projectsService) {
 	    // Some auth check function
 	    
@@ -28,7 +30,7 @@ angular.module("bkApp").controller('buildkitController', ['$scope', '$location',
 			delete $scope.project;
 		};
 	
-}]).directive('buildkit', function(projectsService, $location) {
+}]).directive('buildkit', function() {
   return {
     restrict: 'E',
     scope: {

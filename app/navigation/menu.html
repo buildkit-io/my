@@ -1,39 +1,15 @@
 <ul class="sidebar-menu">
     <li class="header">MAIN NAVIGATION</li>
-    <li class="treeview" ng-class="{active: activeTab == 'newProject' || isProject}">
+    <li class="treeview" ng-class="{active: isProject}">
         <a href="#">
             <i class="fa fa-briefcase"></i> <span>Projects</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
         </a>
-        <ul class="treeview-menu">
-            <li ng-class="{active: isProject}">
-                <a href=""><i class="fa fa-circle-o"></i> My Projects
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-                <ul ng-repeat="project in projects" class="treeview-menu">
-                    <li ng-class="{active: activeTab == project.hostname}"><a ng-href="#!/projects/{{project.hostname}}/view"><i class="fa fa-circle-o"></i> {{project.name}}</a></li>
-                </ul>
-            </li>
-            <li ng-class="{active: activeTab == 'Shared projects'}">
-                <a href=""><i class="fa fa-circle-o"></i> Shared Projects
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-            </li>
+        <ul ng-repeat="(hostname, name) in projects" class="treeview-menu">
+            <li ng-class="{active: activeTab == hostname}"><a ng-href="#!/projects/{{hostname}}/view"><i class="fa fa-circle-o"></i> {{hostname}}</a></li>
         </ul>
-    </li>
-    <li class="treeview">
-        <a href="#">
-            <i class="fa fa-users"></i> <span>My Teams</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-        </a>
     </li>
     <li class="treeview" ng-class="{active: activeTab == 'buildkitMarket'}">
         <a ng-href="#!/market">

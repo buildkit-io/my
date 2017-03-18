@@ -1,0 +1,42 @@
+{
+    "orion-npm": {
+        "description": "Orion Code Editor",
+        "iconClass": "fa fa-code",
+        "bgClass": "bg-yellow"
+    },
+    "cloud9": {
+        "description": "Cloud9 Code Editor",
+        "iconClass": "fa fa-code",
+        "bgClass": "bg-light-blue"
+    },
+    "bktty": {
+        "description": "Terminal",
+        "iconClass": "fa fa-terminal text-muted",
+        "bgClass": "bg-black"
+    },
+    "portainer": {
+        "description": "Container Management",
+        "iconClass": "fa fa-cubes",
+        "bgClass": "bg-navy"
+    },
+    "nginx": {
+        "description": "Web Server / Reverse Proxy",
+        "iconClass": "fa fa-desktop",
+        "bgClass": "bg-green"
+    },
+    "node": {
+        "description": "JavaScript Runtime",
+        "iconClass": "ion ion-social-nodejs",
+        "bgClass": "bg-green-gradient"
+    },
+    "mongo": {
+        "description": "Document Database",
+        "iconClass": "icon-mongodb",
+        "bgClass": "bg-green"
+    },
+    "mysql": {
+        "description": "MySQL Database",
+        "iconClass": "iconS-mysql",
+        "bgClass": "bg-yellow"
+    }
+}

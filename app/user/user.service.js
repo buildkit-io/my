@@ -1,4 +1,5 @@
 /* global angular Auth0Lock Auth0 localStorage */
+/*eslint-env browser */
 angular.module("bkApp").factory('userService', ['$q', '$location', '$firebaseArray', '$firebaseAuth', 'firebaseService',
 function($q, $location, $firebaseArray, $firebaseAuth, firebaseService) {
     var hostnames = $firebaseArray(firebaseService.getChildRef("hostnames")),
