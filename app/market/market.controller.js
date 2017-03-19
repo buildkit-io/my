@@ -3,6 +3,18 @@ angular.module("bkApp").controller('marketController', ['$scope', '$routeParams'
 
 function($scope, $routeParams, $location) {
     $scope.buildkits = [{
+        name: "buildkit-base",
+        title: "Base",
+        description: "<dt>Base image with Docker.</dt>"+
+        "<dd>Fully configured workspace with Docker, Docker Compose and Portainer, "+
+        "just add the tools you need and start working on your project. </dd></dl>",
+        screenshots: [],
+        tools: [{
+            icon: "icon-docker",
+            background: "bg-aqua",
+            title: "Docker"
+        }]
+    },{
         name: "hackathon",
         title: "Hackathon Starter",
         description: "<dl><dt>A boilerplate for Node.js web applications.</dt>"+
