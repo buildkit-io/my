@@ -1,0 +1,46 @@
+/* global angular Auth0Lock Auth0 localStorage */
+angular.module("bkApp").factory('userService', ['$q', '$location', '$firebaseArray', '$firebaseAuth', 'firebaseService',
+function($q, $location, $firebaseArray, $firebaseAuth, firebaseService) {
+    var hostnames = $firebaseArray(firebaseService.getChildRef("hostnames")),
+        authObj = {$getAuth: function() {return {uid: 'test'}}};
+
+    return {
+        waitForAuth: function() {
+            var deferred = $q.defer(),
+                offHolder = {};
+            if (authObj.$getAuth()) {
+                deferred.resolve(authObj.$getAuth().uid);
+            }
+            else {
+                offHolder.offAuth = authObj.$onAuthStateChanged(function(authData) {
+                    if (authData) {
+                        deferred.resolve(authObj.$getAuth().uid);
+                        this.offAuth();
+                    }
+                }, offHolder);
+            }
+            return deferred.promise;
+        },
+        getProfile: function() {
+            var deferred = $q.defer();
+            this.waitForAuth().then(function() {
+                deferred.resolve(angular.fromJson(localStorage.getItem('profile')));
+            }).catch(function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        },
+        getUser: function() {
+            var deferred = $q.defer();
+            this.waitForAuth().then(function(uid) {
+                deferred.resolve(firebaseService.getChildRef("users/"+uid));
+            }).catch(function(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        },
+        getUid: function() {
+            return authObj.$getAuth().uid;
+        }
+    };
+}]);

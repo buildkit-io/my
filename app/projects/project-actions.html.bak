@@ -1,0 +1,22 @@
+<!-- Application buttons -->
+<div class="box box-success">
+    <div class="box-header with-border">
+        <i class="fa fa-flash"></i>
+        <h3 class="box-title">Project Actions</h3>
+    </div>
+    <div class="box-body text-center">
+        <a class="btn btn-app" ng-class="canStart()?'':'disabled'" ng-click="startProject()">
+                    <i class="fa fa-play"></i> Start
+                </a>
+        <a class="btn btn-app" ng-class="canStop()?'':'disabled'" ng-click="restartProject()">
+                    <i class="fa fa-repeat"></i> Restart
+                </a>
+        <a class="btn btn-app" ng-class="canStop()?'':'disabled'"  ng-click="stopProject()">
+                    <i class="fa fa-stop"></i> Stop
+                </a>
+        <a class="btn btn-app" ng-click="deleteProject()">
+                    <i class="fa fa-remove"></i> Delete
+                </a>
+    </div>
+    <!-- /.box-body -->
+</div>

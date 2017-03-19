@@ -1,0 +1,13 @@
+(function($) {
+
+    'use strict';
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyALAUqpARQ96DIsrjVbLrBx9GNMKx-vcVs",
+        authDomain: "upwork.bkusr.com",
+        databaseURL: "https://buildkit-test-8c1b4.firebaseio.com/",
+        storageBucket: "buildkit-test-8c1b4.appspot.com"
+    };
+    firebase.initializeApp(config);
+
+})(jQuery);
