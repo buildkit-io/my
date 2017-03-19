@@ -9,13 +9,12 @@
 		$scope.$watch('project.containers', function(newValue) {
 			if (newValue) {
 				$scope.containers=angular.fromJson(newValue);
+				if (!$scope.containers) {
+					tasksService.listContainers($scope.project);
+				}
 			}
 		});
 		
-		$scope.refresh = function() {
-        	tasksService.listContainers($scope.project);
-    	};
-    	
     	$scope.isSecure = function(container) {
     		return container.NetworkSettings.Networks.secure;
     	};

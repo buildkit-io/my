@@ -1,34 +1,26 @@
-<!-- /.info-box -->
-<div class="box box-primary">
-    <div class="box-header with-border">
-        <i class="fa fa-tasks"></i>
-        <h3 class="box-title">Docker Containers</h3>
-        <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" ng-click="refresh()"><i class="fa fa-refresh"></i></button>
-        </div>
-    </div>
-    <div class="box-body">
-        <div class="row">
-            <div class="col-lg-6 col-xs-12" ng-repeat="container in containers">
-                <!-- small box -->
-                <div class="small-box bg-aqua">
-                    <span ng-if="isSecure(container)" data-toggle="tooltip" title="" class="badge bg-yellow" style="position: absolute;top: -3px;right: -10px;" data-original-title="BuildKit Secure">
-                        <i class="fa fa-lock"></i>
-                    </span>
-                    <div class="inner">
-                        <h3>{{getName(container)}}</h3>
-                        <p>{{container.Image}}</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-docker"></i>
-                    </div>
-                    <a href="{{getSecureUrl(container)}}" class="small-box-footer" target="_blank" ng-if="isSecure(container)">{{getSecureUrl(container)}} <i class="fa fa-arrow-circle-right"></i></a>
-                    <a class="small-box-footer" ng-if="!isSecure(container) && !isPublic(container)">:{{getPrivatePort(container)}} <i class="fa fa-plug"></i></a>
-                    <a href="{{getPublicUrl()}}" ng-if="!isSecure(container) && isPublic(container)" target="_blank" class="small-box-footer">{{getPublicUrl()}} <i class="fa fa-arrow-circle-right"></i></a>
-                </div>
+<div class="row">
+        <div class="col-sm-6 col-xs-12" ng-repeat="container in containers" ng-if="container.Names[0]!=='/nginx-reverse'">
+          <div class="info-box">
+            <a href="{{getSecureUrl(container)}}" target="_blank" ng-if="isSecure(container)"><span class="info-box-icon bg-aqua"><i class="fa fa-docker"></i></span></a>
+            <span class="info-box-icon bg-aqua" ng-if="!isSecure(container) && !isPublic(container)"><i class="fa fa-docker"></i></span>
+            <a href="{{getPublicUrl()}}" target="_blank" ng-if="!isSecure(container) && isPublic(container)"><span class="info-box-icon bg-aqua"><i class="fa fa-docker"></i></span></a>
+            <div class="info-box-content">
+              <span class="pull-right" ng-if="isSecure(container)" data-toggle="tooltip" title="" data-original-title="BuildKit Secure">
+                 <i class="fa fa-lock"></i>
+              </span>
+              <span class="pull-right" ng-if="!isSecure(container) && !isPublic(container)" data-toggle="tooltip" title="" data-original-title=":{{getPrivatePort(container)}}">
+                 <i class="fa fa-plug"></i>
+              </span>
+              <span class="pull-right" ng-if="!isSecure(container) && isPublic(container)" data-toggle="tooltip" title="" data-original-title="Publicly Accessible">
+                 <i class="fa fa-globe"></i>
+              </span>
+              <span class="info-box-text">{{container.Image}}</span>
+              <span class="info-box-number">{{getName(container)}}</span>
+              <span class="">Description</span>
             </div>
-            <!-- ./col -->
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
         </div>
-    </div>
-</div>
-<!-- /.box -->
+        <!-- /.col -->
+ </div>
