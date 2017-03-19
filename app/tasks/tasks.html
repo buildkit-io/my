@@ -11,7 +11,7 @@
                     <th>Task</th>
                     <th>Status</th>
                 </tr>
-                <tr ng-repeat="task in $ctrl.tasks | orderBy:'createdAt'">
+                <tr ng-repeat="(key, task) in $ctrl.tasks">
                     <td>{{task.createdAt | date:'medium'}}</td>
                     <td>{{task.action}}</td>
                     <td> <span class="label" ng-class="$ctrl.getClass(task)">{{task.status}}</span></td>

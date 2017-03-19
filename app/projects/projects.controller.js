@@ -1,37 +1,20 @@
 /* global angular Project */
-angular.module("bkApp").controller('projectsController', ['$scope', '$routeParams', '$location', 'projectsService', 'tasksService',
+/*eslint-env browser */
+/*globals firebase */
+angular.module("bkApp").controller('projectsController', ['$scope', '$routeParams', '$location', '$firebaseObject' ,'projectsService', 'tasksService', 'userService',
 
-function($scope, $routeParams, $location, projectsService, tasksService) {
+function($scope, $routeParams, $location, $firebaseObject, projectsService, tasksService, userService) {
     $scope.hostname = $routeParams.hostname;
-    $scope.project;
-    $scope.tasks;
+    $scope.project = null;
 
-    if (!$scope.project) {
-        if ($scope.hostname) {
-            projectsService.getProject($scope.hostname).then(function(loadedProject) {
-                if (loadedProject) {
-                    $scope.project = loadedProject;
-                }
-                else {
-                    $location.path('/projects/new');
-                }
-            }).
-            catch (function(error) {
-                console.log("Failed to load project: " + $scope.hostname);
-                console.log(error);
-                $location.path('/projects/new');
-            });
-            $scope.tasks = tasksService.getTasks($scope.hostname);
-        }
-        else {
-            $scope.project = new Project();
-        }
-    }
+	userService.waitForAuth().then(function(uid) {
+		$firebaseObject(firebase.database().ref("projects/" + $scope.hostname)).$bindTo($scope, "project");
+	});
 
     $scope.deleteProject = function() {
         projectsService.deleteProject($scope.hostname).then(function() {
             // naviage to new project
-            $location.path('/projects/new');
+            $location.path('/');
         }).
         catch (console.error);
     };
@@ -53,7 +36,7 @@ function($scope, $routeParams, $location, projectsService, tasksService) {
 
     $scope.getState = function() {
         if ($scope.project) {
-            switch ($scope.project) {
+            switch ($scope.project.status) {
             case Project.StatusTypes.RUNNING:
                 return Project.StateTypes.OK;
             case Project.StatusTypes.STARTING:

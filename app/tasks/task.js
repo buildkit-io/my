@@ -1,11 +1,8 @@
-/* global uuid */
-
 function Task(action, project) {
     this.action = action;
     this.server_queue = project ? project.server_queue : null;
     this.project = {
         hostname: project.hostname,
-        spec: project.spec,
         buildkit: project.buildkit,
         server_queue: project.server_queue,
         createdBy: project.createdBy
@@ -24,7 +21,8 @@ Task.ActionTypes = {
     START: "start",
     STOP: "stop",
     RESTART: "restart",
-    DELETE: "delete"
+    DELETE: "delete",
+    DOCKER_PS: "docker_ps"
 };
 Object.freeze(Task.ActionTypes);
 

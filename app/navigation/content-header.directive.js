@@ -1,6 +1,5 @@
-angular.module("bkApp").controller('contentHeaderController', ['$scope', 
-'$route', '$routeParams', 'projectsService', 
-function($scope, $route, $routeParams, projectsService) {}])
+/*globals angular */
+angular.module("bkApp")
 .directive('contentHeader', function() {
     return {
         restrict: 'E',
@@ -10,7 +9,6 @@ function($scope, $route, $routeParams, projectsService) {}])
             hasIcon: '=',
             style: '@'
         },
-        controller: 'contentHeaderController',
         templateUrl: 'app/navigation/content-header.html'
     };
 });

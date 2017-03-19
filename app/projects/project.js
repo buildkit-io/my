@@ -1,7 +1,6 @@
 function Project() {
     this.name = "";
     this.hostname = "";
-    this.spec = "";
     this.buildkit = null;
     this.status = Project.StatusTypes.CREATING;
     this.server_queue = null;
@@ -9,6 +8,7 @@ function Project() {
     this.createdBy = "";
     this.tasks = {};
     this.users = {};
+    this.containers = {};
 }
 
 Project.StatusTypes = {

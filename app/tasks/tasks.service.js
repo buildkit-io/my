@@ -1,4 +1,5 @@
 /* global angular Task */
+/*eslint-env browser */
 angular.module("bkApp").factory('tasksService', ['firebaseService', function(firebaseService) {
     var addTask = function(task) {
         var mergedUpdate = {};
@@ -15,9 +16,6 @@ angular.module("bkApp").factory('tasksService', ['firebaseService', function(fir
     };
     
     return {
-        getTasks: function(hostname) {
-            return firebaseService.getArrayRef('projects/'+hostname+'/tasks/');
-        },
         createProject: function(project) {
             var task = new Task(Task.ActionTypes.CREATE, project);
             task.createdAt = firebaseService.getServerTime();
@@ -34,7 +32,9 @@ angular.module("bkApp").factory('tasksService', ['firebaseService', function(fir
         },
         deleteProject: function(project) {
             addTask(new Task(Task.ActionTypes.DELETE, project));
-        }
-        
+        },
+        listContainers: function(project) {
+        	addTask(new Task(Task.ActionTypes.DOCKER_PS, project));
+        }  
     };
 }]);

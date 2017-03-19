@@ -1,4 +1,9 @@
+/*globals angular */
 angular.module("bkApp").controller('projectActionsController', ['$scope', 'tasksService', function($scope, tasksService) {
+
+	$scope.refresh = function() {
+        tasksService.listContainers($scope.project);
+    };	
 
     $scope.startProject = function() {
         tasksService.startProject($scope.project);
