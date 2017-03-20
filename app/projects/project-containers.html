@@ -1,9 +1,9 @@
 <div class="row">
         <div class="col-sm-6 col-xs-12" ng-repeat="container in containers" ng-if="container.Names[0]!=='/nginx-reverse'">
           <div class="info-box">
-            <a href="{{getSecureUrl(container)}}" target="_blank" ng-if="isSecure(container)"><span class="info-box-icon bg-aqua"><i class="fa fa-docker"></i></span></a>
-            <span class="info-box-icon bg-aqua" ng-if="!isSecure(container) && !isPublic(container)"><i class="fa fa-docker"></i></span>
-            <a href="{{getPublicUrl()}}" target="_blank" ng-if="!isSecure(container) && isPublic(container)"><span class="info-box-icon bg-aqua"><i class="fa fa-docker"></i></span></a>
+            <a href="{{getSecureUrl(container)}}" target="_blank" ng-if="isSecure(container)"><span class="info-box-icon" ng-class="getBgClass(container)"><i ng-class="getIconClass(container)"></i></span></a>
+            <span class="info-box-icon" ng-class="getBgClass(container)" ng-if="!isSecure(container) && !isPublic(container)"><i ng-class="getIconClass(container)"></i></span>
+            <a href="{{getPublicUrl()}}" target="_blank" ng-if="!isSecure(container) && isPublic(container)"><span class="info-box-icon" ng-class="getBgClass(container)"><i ng-class="getIconClass(container)"></i></span></a>
             <div class="info-box-content">
               <span class="pull-right" ng-if="isSecure(container)" data-toggle="tooltip" title="" data-original-title="BuildKit Secure">
                  <i class="fa fa-lock"></i>
@@ -16,7 +16,7 @@
               </span>
               <span class="info-box-text">{{container.Image}}</span>
               <span class="info-box-number">{{getName(container)}}</span>
-              <span class="">Description</span>
+              <span class="">{{getDescription(container)}}</span>
             </div>
             <!-- /.info-box-content -->
           </div>

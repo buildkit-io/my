@@ -11,7 +11,7 @@
     },
     "bktty": {
         "description": "Terminal",
-        "iconClass": "fa fa-terminal text-muted",
+        "iconClass": "fa fa-terminal",
         "bgClass": "bg-black"
     },
     "portainer": {
@@ -36,7 +36,7 @@
     },
     "mysql": {
         "description": "MySQL Database",
-        "iconClass": "iconS-mysql",
+        "iconClass": "icon-mysql",
         "bgClass": "bg-yellow"
     }
 }
