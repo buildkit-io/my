@@ -1,7 +1,7 @@
 function Project() {
     this.name = "";
     this.hostname = "";
-    this.buildkit = null;
+    this.tutorial = null;
     this.status = Project.StatusTypes.CREATING;
     this.server_queue = null;
     this.createdAt = "";

@@ -1,8 +1,8 @@
 /* global angular Project */
-angular.module("bkApp").controller('marketController', ['$scope', '$routeParams', '$location',
+angular.module("bkApp").controller('tutorialsController', ['$scope', '$routeParams', '$location',
 
 function($scope, $routeParams, $location) {
-    $scope.buildkits = [{
+    $scope.tutorials = [{
         name: "buildkit-base",
         title: "Base",
         description: "<dt>Base image with Docker.</dt>"+

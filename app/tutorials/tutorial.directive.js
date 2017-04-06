@@ -1,6 +1,6 @@
 /*eslint-env jquery */
 /*globals angular */
-angular.module("bkApp").controller('buildkitController', ['$scope', '$location', 'projectsService', function($scope, $location, projectsService) {
+angular.module("bkApp").controller('tutorialController', ['$scope', '$location', 'projectsService', function($scope, $location, projectsService) {
 	    // Some auth check function
 	    
 	    /*
@@ -8,7 +8,7 @@ angular.module("bkApp").controller('buildkitController', ['$scope', '$location',
 	     */
 		$scope.onCreateProject = function() {
 			$scope.project = new Project();	
-			$scope.project.buildkit = $scope.buildkitData.name;
+			$scope.project.tutorial = $scope.tutorialData.name;
 		};
 		
 		/*
@@ -18,7 +18,7 @@ angular.module("bkApp").controller('buildkitController', ['$scope', '$location',
 			projectsService.addProject($scope.project).then(function() {
             	$location.path('/projects/' + $scope.project.hostname + '/view');
             	// Hide Modal
-            	$('#createProjectModal-'+ $scope.buildkitData.name).modal('hide');
+            	$('#createProjectModal-'+ $scope.tutorialData.name).modal('hide');
             	$scope.onCreateProjectModalClose();
         	});
 		};
@@ -30,13 +30,13 @@ angular.module("bkApp").controller('buildkitController', ['$scope', '$location',
 			delete $scope.project;
 		};
 	
-}]).directive('buildkit', function() {
+}]).directive('tutorial', function() {
   return {
     restrict: 'E',
     scope: {
-        buildkitData: '='
+        tutorialData: '='
     },
-    controller: 'buildkitController',
-    templateUrl: 'app/market/buildkit.html'
+    controller: 'tutorialController',
+    templateUrl: 'app/tutorials/tutorial.html'
   };
 });

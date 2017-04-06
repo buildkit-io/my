@@ -96,7 +96,7 @@
 		};
 
 		$scope.getPublicUrl = function() {
-			return "https://" + $scope.project.hostname + ".bkusr.com";
+			return "https://" + $scope.project.hostname + ".buildkit.io";
 		};
 
 	}]).directive('projectContainers', function() {

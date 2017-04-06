@@ -1,4 +1,4 @@
-function Buildkit() {
+function Tutorial() {
     this.name = "";
     this.title = "";
     this.description = "";
@@ -7,6 +7,6 @@ function Buildkit() {
     this.createdBy = "";
 }
 
-Buildkit.prototype = {
-    constructor: Buildkit
+Tutorial.prototype = {
+    constructor: Tutorial
 };

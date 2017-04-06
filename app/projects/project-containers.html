@@ -1,11 +1,11 @@
 <div class="row">
-        <div class="col-sm-6 col-xs-12" ng-repeat="container in containers" ng-if="container.Names[0]!=='/nginx-reverse'">
+        <div class="col-sm-12 col-xs-12" ng-repeat="container in containers" ng-if="container.Names[0]!=='/nginx-reverse'">
           <div class="info-box">
             <a href="{{getSecureUrl(container)}}" target="_blank" ng-if="isSecure(container)"><span class="info-box-icon" ng-class="getBgClass(container)"><i ng-class="getIconClass(container)"></i></span></a>
             <span class="info-box-icon" ng-class="getBgClass(container)" ng-if="!isSecure(container) && !isPublic(container)"><i ng-class="getIconClass(container)"></i></span>
             <a href="{{getPublicUrl()}}" target="_blank" ng-if="!isSecure(container) && isPublic(container)"><span class="info-box-icon" ng-class="getBgClass(container)"><i ng-class="getIconClass(container)"></i></span></a>
             <div class="info-box-content">
-              <span class="pull-right" ng-if="isSecure(container)" data-toggle="tooltip" title="" data-original-title="BuildKit Secure">
+              <span class="pull-right" ng-if="isSecure(container)" data-toggle="tooltip" title="" data-original-title="Requires Authentication">
                  <i class="fa fa-lock"></i>
               </span>
               <span class="pull-right" ng-if="!isSecure(container) && !isPublic(container)" data-toggle="tooltip" title="" data-original-title=":{{getPrivatePort(container)}}">

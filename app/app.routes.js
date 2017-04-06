@@ -6,12 +6,12 @@ angular.module("bkApp").config(function($routeProvider, $locationProvider) {
             isProject: true,
             pageTitle: null
         })
-        .when("/market", {
-            controller: 'marketController',
-            templateUrl: "app/market/view.html",
-            activeTab: 'buildkitMarket'
+        .when("/tutorials", {
+            controller: 'tutorialsController',
+            templateUrl: "app/tutorials/view.html",
+            activeTab: 'tutorials'
         })
         .otherwise({
-            redirectTo: '/market'
+            redirectTo: '/tutorials'
         });
 });
