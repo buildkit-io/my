@@ -3,7 +3,7 @@ angular.module("bkApp").controller('tutorialsController', ['$scope', '$routePara
 
 function($scope, $routeParams, $location) {
     $scope.tutorials = [{
-        name: "buildkit-base",
+        name: "base",
         title: "Base",
         description: "<dt>Base image with Docker.</dt>"+
         "<dd>Fully configured workspace with Docker, Docker Compose and Portainer, "+
