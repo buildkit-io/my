@@ -3,7 +3,7 @@ function Task(action, project) {
     this.server_queue = project ? project.server_queue : null;
     this.project = {
         hostname: project.hostname,
-        buildkit: project.buildkit,
+        tutorial: project.tutorial,
         server_queue: project.server_queue,
         createdBy: project.createdBy
     };
