@@ -1,10 +1,10 @@
 function Task(action, project) {
     this.action = action;
-    this.server_queue = project ? project.server_queue : null;
+    this.instance_id = project ? project.instance_id : null;
     this.project = {
         hostname: project.hostname,
         tutorial: project.tutorial,
-        server_queue: project.server_queue,
+        instance_id: project.instance_id,
         createdBy: project.createdBy
     };
     this.status = Task.StatusTypes.PENDING;
