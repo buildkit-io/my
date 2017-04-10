@@ -3,7 +3,6 @@ function Project() {
     this.hostname = "";
     this.tutorial = null;
     this.status = Project.StatusTypes.PENDING;
-    this.instance_id = null;
     this.createdAt = "";
     this.createdBy = "";
     this.tasks = {};
