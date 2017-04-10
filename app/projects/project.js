@@ -2,7 +2,7 @@ function Project() {
     this.name = "";
     this.hostname = "";
     this.tutorial = null;
-    this.status = Project.StatusTypes.CREATING;
+    this.status = Project.StatusTypes.PENDING;
     this.instance_id = null;
     this.createdAt = "";
     this.createdBy = "";
@@ -12,13 +12,13 @@ function Project() {
 }
 
 Project.StatusTypes = {
-    CREATING: "creating",
-    FAILED: "failed",
-    STARTING: "starting",
+	PENDING: "pending",
     RUNNING: "running",
-    STOPPED: "stopped",
+    SHUTTING_DOWN: "shutting-down",
+    TERMINATED: "terminated",
     STOPPING: "stopping",
-    RESTARTING: "restarting"
+    STOPPED: "stopped"
+
 };
 Object.freeze(Project.StatusTypes);
 Project.StateTypes = {

@@ -25,31 +25,14 @@ angular.module("bkApp").controller('projectActionsController', ['$scope', 'tasks
         if (!$scope.project) {
             return false;
         }
-        return ($scope.project.status === Project.StatusTypes.STOPPED || 
-            $scope.project.status === Project.StatusTypes.FAILED) && 
-            !$scope.hasTasksInProgress();
+        return $scope.project.status === Project.StatusTypes.STOPPED;
     };
 
     $scope.canStop = function() {
         if (!$scope.project) {
             return false;
         }
-        return ($scope.project.status === Project.StatusTypes.RUNNING ||
-            $scope.project.status === Project.StatusTypes.FAILED) &&
-            !$scope.hasTasksInProgress();
-    };
-
-    $scope.hasTasksInProgress = function() {
-        if (!$scope.project.tasks) {
-            return false;
-        }
-        for (var key in $scope.project.tasks) {
-            if ($scope.project.tasks[key].status === Task.StatusTypes.PENDING ||
-            $scope.project.tasks[key].status === Task.StatusTypes.IN_PROGRESS) {
-                return true;
-            }
-        }
-        return false;
+        return $scope.project.status === Project.StatusTypes.RUNNING;
     };
 
 }]).directive('projectActions', function() {

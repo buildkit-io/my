@@ -1,9 +1,9 @@
 /* global angular Project */
 /*eslint-env browser */
 /*globals firebase */
-angular.module("bkApp").controller('projectsController', ['$scope', '$routeParams', '$location', '$firebaseObject' ,'projectsService', 'tasksService', 'userService',
+angular.module("bkApp").controller('projectsController', ['$scope', '$routeParams', '$location', '$firebaseObject' ,'projectsService', 'userService',
 
-function($scope, $routeParams, $location, $firebaseObject, projectsService, tasksService, userService) {
+function($scope, $routeParams, $location, $firebaseObject, projectsService, userService) {
     $scope.hostname = $routeParams.hostname;
     $scope.project = null;
 
@@ -39,11 +39,11 @@ function($scope, $routeParams, $location, $firebaseObject, projectsService, task
             switch ($scope.project.status) {
             case Project.StatusTypes.RUNNING:
                 return Project.StateTypes.OK;
-            case Project.StatusTypes.STARTING:
+            case Project.StatusTypes.PENDING:
             case Project.StatusTypes.STOPPING:
-            case Project.StatusTypes.RESTARTING:
+            case Project.StatusTypes.SHUTTING_DOWN:
                 return Project.StateTypes.WARNING;
-            case Project.StatusTypes.FAILED:
+            case Project.StatusTypes.STOPPED:
                 return Project.StateTypes.ERROR;
             default:
                 return Project.StateTypes.UNKNOWN;
