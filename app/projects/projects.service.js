@@ -10,18 +10,13 @@ firebaseService) {
             userService.waitForAuth().then(function() {
                 newProject.createdAt = firebaseService.getServerTime();
                 newProject.createdBy = userService.getUid();
-                var taskId = firebaseService.getId();
-                var task = tasksService.createProject(newProject);
                 newProject.tasks = {};
-                newProject.tasks[taskId] = task;
                 newProject.users = {};
                 newProject.users[userService.getUid()] = true;
                 var mergedUpdate = {};
                 mergedUpdate['users/' + newProject.createdBy + '/projects/' + newProject.hostname] = true;
                 mergedUpdate['projects/' + newProject.hostname] = newProject;
                 mergedUpdate['hostnames/' + newProject.hostname] = true;
-                mergedUpdate['tasks/' + taskId] = task;
-
                 firebaseService.update(mergedUpdate).then(function() {
                     deferred.resolve();
                 }).

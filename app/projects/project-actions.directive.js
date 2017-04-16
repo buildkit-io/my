@@ -1,12 +1,16 @@
-/*globals angular */
-angular.module("bkApp").controller('projectActionsController', ['$scope', 'tasksService', function($scope, tasksService) {
+/*globals angular Project*/
+angular.module("bkApp").controller('projectActionsController', ['$scope', '$location', 'tasksService', 'projectsService', function($scope, $location, tasksService, projectsService) {
 
 	$scope.refresh = function() {
         tasksService.listContainers($scope.project);
     };	
 
     $scope.startProject = function() {
-        tasksService.startProject($scope.project);
+    	if ($scope.project.status === Project.StatusTypes.AVAILABLE) {
+    		tasksService.createProject($scope.project);
+    	} else {
+    		tasksService.startProject($scope.project);
+    	}
     };
 
     $scope.restartProject = function() {
@@ -18,21 +22,22 @@ angular.module("bkApp").controller('projectActionsController', ['$scope', 'tasks
     };
 
     $scope.deleteProject = function() {
-        tasksService.deleteProject($scope.project);
+        projectsService.deleteProject($scope.project.$id);
+        $location.path('/');
     };
 
     $scope.canStart = function() {
         if (!$scope.project) {
             return false;
         }
-        return $scope.project.status === Project.StatusTypes.STOPPED;
+        return $scope.project.status !== Project.StatusTypes.RUNNING;
     };
 
     $scope.canStop = function() {
         if (!$scope.project) {
             return false;
         }
-        return $scope.project.status === Project.StatusTypes.RUNNING;
+        return true;
     };
 
 }]).directive('projectActions', function() {

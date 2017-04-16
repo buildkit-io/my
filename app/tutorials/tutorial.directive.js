@@ -1,5 +1,5 @@
 /*eslint-env jquery */
-/*globals angular */
+/*globals angular Project*/
 angular.module("bkApp").controller('tutorialController', ['$scope', '$location', 'projectsService', function($scope, $location, projectsService) {
 	    // Some auth check function
 	    
@@ -8,7 +8,9 @@ angular.module("bkApp").controller('tutorialController', ['$scope', '$location',
 	     */
 		$scope.onCreateProject = function() {
 			$scope.project = new Project();	
-			$scope.project.tutorial = $scope.tutorialData.name;
+			$scope.project.ami = $scope.tutorialData.ami;
+			$scope.project.tutorial = $scope.tutorialData.id;
+			$scope.project.containers = $scope.tutorialData.containers;
 		};
 		
 		/*

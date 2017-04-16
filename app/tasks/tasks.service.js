@@ -17,9 +17,7 @@ angular.module("bkApp").factory('tasksService', ['firebaseService', function(fir
     
     return {
         createProject: function(project) {
-            var task = new Task(Task.ActionTypes.CREATE, project);
-            task.createdAt = firebaseService.getServerTime();
-            return task;
+            addTask(new Task(Task.ActionTypes.CREATE, project));
         },
         startProject: function(project) {
             addTask(new Task(Task.ActionTypes.START, project));

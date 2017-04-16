@@ -2,7 +2,8 @@ function Project() {
     this.name = "";
     this.hostname = "";
     this.tutorial = null;
-    this.status = Project.StatusTypes.PENDING;
+    this.ami = null;
+    this.status = Project.StatusTypes.AVAILABLE;
     this.createdAt = "";
     this.createdBy = "";
     this.tasks = {};
@@ -11,6 +12,7 @@ function Project() {
 }
 
 Project.StatusTypes = {
+	AVAILABLE: "available",
 	PENDING: "pending",
     RUNNING: "running",
     SHUTTING_DOWN: "shutting-down",

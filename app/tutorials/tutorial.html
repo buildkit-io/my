@@ -5,30 +5,7 @@
     <!-- /.box-header -->
     <div class="box-body">
         <div class="row">
-            <div class="col-sm-12 col-md-6" ng-bind-html="tutorialData.description | unsafe"></div>
-            <div class="col-sm-12 col-md-6">
-                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                        <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
-                        <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
-                    </ol>
-                    <div class="carousel-inner">
-                        <div class="item" ng-class="$index == 0?'active':''" ng-repeat="screenshot in tutorialData.screenshots">
-                            <img ng-src="{{screenshot.url}}" alt="{{screenshot.title}}">
-                            <div class="carousel-caption">{{screenshot.title}}</div>
-                        </div>
-                    </div>
-                    <!-- <a class="left carousel-control" href="#carousel-example-generic"
-                    data-slide="prev">-->
-                    <!-- <span class="fa fa-angle-left"></span>-->
-                    <!--</a>-->
-                    <!-- <a class="right carousel-control" href="#carousel-example-generic"
-                    data-slide="next">-->
-                    <!-- <span class="fa fa-angle-right"></span>-->
-                    <!--</a>-->
-                </div>
-            </div>
+            <div class="col-sm-12 col-md-12" ng-bind-html="tutorialData.description | unsafe"></div>
         </div>
     </div>
     <!-- /.box-body -->

@@ -2,7 +2,7 @@ function Task(action, project) {
     this.action = action;
     this.project = {
         hostname: project.hostname,
-        tutorial: project.tutorial,
+        ami: project.ami,
         createdBy: project.createdBy
     };
     this.status = Task.StatusTypes.PENDING;

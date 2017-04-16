@@ -1,109 +1,16 @@
 <div class="box box-widget" height="100%">
-    <div class="box-header with-border">
-        <div class="user-block">
-            <span class="username">
-                Amazon Cognito with Auth0 and AngularJS
+	<div class="box-header with-border">
+		<div class="user-block">
+			<span class="username">
+            	{{$ctrl.tutorial.title}}
             </span>
-            <span class="description">March 30, 2017</span>
-        </div>
-        <!-- /.user-block -->
-        <div class="box-tools">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                <i class="fa fa-minus"></i>
-            </button>
-        </div>
-        <!-- /.box-tools -->
-    </div>
-    <!-- /.box-header -->
-    <div class="box-body" style="display: block;">
-<center><iframe width="560" height="315" src="https://www.youtube.com/embed/abTy-Yyo6lI" frameborder="0" allowfullscreen></iframe></center>
-<h2>Overview</h2>
-This example shows you how to enable authentication and remote storage for your WebApp with no back-end code. You can use Cognito to give your users secure and restricted access to other AWS services within your account such as Amazon Simple Storage Service (S3) for file uploads / sharing or Amazon DynamoDB for ultra-fast scalable NoSQL database.
-<h2>Topics Covered</h2>
-This lab covers:
-<ul>
- 	<li><em>Setting up <strong>Auth0</strong> (sign-up/login/password recovery)</em></li>
- 	<li><em>Enabling <strong>Amazon Cognito</strong></em></li>
- 	<li><em>Integrating <strong>Auth0</strong> and <strong>Amazon Cognito</strong> for secure remote storage and sync</em></li>
- 	<li><em>Sample <strong>AngularJS</strong> code to demonstrate server-less remote storage</em></li>
-</ul>
-<h2>Prerequisites</h2>
-<ul>
- 	<li>Auth0 account: <a href="https://auth0.com/" target="_blank">sign up for free</a>.</li>
- 	<li>Amazon AWS account: <a href="https://aws.amazon.com/free/" target="_blank">free tier</a>.</li>
-</ul>
-<h1>What is Auth0?</h1>
-Auth0 is a cloud service which provides fully featured authentication for your users. It supports common use cases such as Sign-Up, Login, Password Recovery, Single Sign On (for example with Facebook, Google, Twitter, etc.) and integrates with other providers through the OpenID protocol. Auth0 saves you time adding authentication to your web or native applications, without the need for a back-end.
-<h2>Setting up Auth0</h2>
-Once you <a href="https://auth0.com/" target="_blank">Sign Up for Auth0</a> and log in you will be presented with the Dashboard.
-<ol>
- 	<li>Click "NEW CLIENT". Give your app a name and choose <strong>Single Page Web Applications</strong>. Then click "CREATE"</li>
- 	<li>On the "Settings" tab copy the "<strong>Client ID</strong>" and paste it in the "auth0-variables.js" file of this example as the variable "<strong>AUTH0_CLIENT_ID</strong>"</li>
- 	<li>Copy the "<strong>Domain</strong>" from the "Settings" tab in Auth0 and paste in in the "auth0-variables.js" as the variable "<strong>AUTH0_DOMAIN"</strong></li>
- 	<li>Back on the "Settings" tab in Auth0 scroll to "<strong>Allowed Callback URLs</strong>" and put the full URL to your app, using wildcard ("<strong>*</strong>") for parts that may change. For this example put <strong>https://*.cloudeity.com/</strong></li>
- 	<li>Scroll to the bottom of the "Settings" tab and click on the "<strong>Show Advanced Settings</strong>" link right above the "Save Changes" button.</li>
- 	<li>Open the <strong>OAuth</strong> tab and change the JsonWebToken Signature Algorithm to <strong>RS256 </strong>.</li>
- 	<li>Click on the "<strong>Save Changes</strong>" button. Then click the <strong>Run</strong> button in Cloudeity. You can now Sign Up &amp; Login to test your Auth0 integration.</li>
-</ol>
-<h1>What is Amazon Cognito?</h1>
-Amazon Cognito is a user identity and data synchronization service which allows you to store and synchronize data directly from JavaScript or native mobile applications without the need for a back-end (server).
-<h2>Enabling Cognito</h2>
-<h3>Create Identity Provider</h3>
-Once you Sign Up for Amazon AWS, open the Console, choose a region, and select <a href="https://console.aws.amazon.com/iam/home#/providers" target="_blank">IAM</a>
+			<span class="description">March 30, 2017</span>
+		</div>
+		<!-- /.user-block -->
+	</div>
+	<!-- /.box-header -->
+	<div class="box-body" style="display: block;" ng-bind-html="$ctrl.tutorial.description | unsafe">
 
-<img src="https://examples.run/wp-content/uploads/2017/03/IDPCreation.gif" alt="Creating a new OpenID Connect Provider in Amazon AWS" style="width:100%" />
-<ol>
- 	<li>Click on "<strong>Identity providers</strong>" and the "<strong>Create Provider</strong>" button.</li>
- 	<li>From "<strong>Provider Type</strong>" select "<strong>OpenID Connect</strong>"</li>
- 	<li>Type <strong>https://</strong> into the "<strong>Provider URL</strong>" field on the AWS Configure Provider page and paste the <strong>Domain</strong> from your Auth0 client "Settings" tab into the same "<strong>Provider URL</strong>" field right after "https://". Refer to Setting up Auth0 above for instructions on where to find your Auth0 domain.</li>
- 	<li>Paste the <strong>Client ID</strong> from your Auth0 client "Settings" tab into the "<strong>Audience</strong>" field on the AWS Configure Provider page. Then click on "<strong>Next Step</strong>".</li>
- 	<li>Click on the "<strong>Create</strong>" button.</li>
-</ol>
-<h3>Create Cognito Identity Pool</h3>
-From the Amazon AWS Console choose <a href="http://console.aws.amazon.com/cognito/home" target="_blank">Cognito</a> then click on "<strong><a href="https://us-east-2.console.aws.amazon.com/cognito/federated/" target="_blank">Manage Federated Identities</a></strong>"
-<ol>
- 	<li>On the "Create new identity pool" page enter a name you would like for your app in the "<strong>Identity pool name</strong>" field.</li>
- 	<li>Expand "<strong>Authentication providers</strong>" and click on the "<strong>OpenID</strong>" tab.</li>
- 	<li>Enable the <strong>auth0.com identity provider</strong> you created earlier.</li>
- 	<li>Click the "<strong>Create Pool</strong>" button.</li>
- 	<li>On the next screen AWS is informing you about the default roles assigned to users. Click the "<strong>Allow</strong>" button.</li>
- 	<li>On the Getting Started page you should see the "<strong>Identity Pool ID</strong>" under the "<strong>Get AWS Credentials</strong>" heading.</li>
- 	<li>Copy and paste the "<strong>Identity Pool ID</strong>" as the <strong>AWS_IDENTITY_POOL_ID</strong> variable in the<strong> auth0-variables.js</strong> file in the example.</li>
- 	<li>Copy the first part of the "Identity Pool ID" (before the first ":") and paste it as the <strong>AWS_REGION</strong> variable in the <strong>auth0-variables.js</strong> file.</li>
-</ol>
-<h2>Integrate Auth0 and Cognito</h2>
-By integrating Auth0 and Cognito you can control the access of your users to AWS services and sync data without a backend.
-
-Open the <a href="https://console.aws.amazon.com/" target="_blank">Amazon AWS Console</a>.
-<ol>
- 	<li>Go to the <a href="https://console.aws.amazon.com/iam/home" target="_blank">IAM service page</a> for the region you are using.</li>
- 	<li>On the Dashboard tab you will see a "IAM users sign-in link:". Copy only the NUMERIC (numbers) part of this URL and paste it as the <strong>AWS_ACCOUNT_ID</strong> variable in the auth0-variables.js file in the example. You can also find the account id on the AWS My Account Page.</li>
- 	<li>Click on "Roles" and then click on the Auth_Role for the Auth0 provider you created above.</li>
- 	<li>Copy the <strong>Role ARN</strong> and paste it as the <strong>AWS_ROLE_ARN</strong> variable in the example.</li>
-</ol>
-If you run the app now you should be able to sigup/login with Auth0 and after authentication you will gain access to AWS through Cognito. If you are interested in the details of how the actual authentication with Cognito happens check the <strong>auth.service.js</strong> file in the example.
-<h2>Use Cognito Sync</h2>
-Cognito Sync allows you to store up to 1 MB of key-value pairs data as a dataset. You can have up to 20 datasets per user identity. For storing more data consider Amazon DynamoDB or S3.
-<h3>Amazon Cognito Sync Manager</h3>
-In addition to the standard aws-sdk for JavaScript which you need in order to use any AWS services from JavaScript (included in the bower.json file of this example app), AWS provide a <a href="https://github.com/aws/amazon-cognito-js" target="_blank">library for use specifically with Cognito Sync</a>. Currently it is not available in bower, so the minified version is included in the example app.
-<ol>
- 	<li>After authentication initialize the sync manager and open/create a dataset (see init() in sync.service.js of the example)</li>
- 	<li>Once the sync manager is initialized you can call the standard <strong>methods on the dataset</strong>:
-<ol>
- 	<li><strong>get</strong>(key, function(err,value){}): <strong>asynchronously</strong> returns the value for the given key</li>
- 	<li><strong>put</strong>(key, value, function(err,data){}): asynchronously stores the <strong>string value</strong> for the given key and calls a function passing the result of the store operation (which includes timestamp and other attributes, as well as the value in data.value)</li>
- 	<li><strong>synchronize</strong>(): uploads the local dataset to Amazon Cognito Sync and merges it with the remote dataset (in case it has changed simultaneously). This method allows you to provide handlers for conflict resolution.</li>
-</ol>
-</li>
-</ol>
-You can test the Amazon Cognito Sync Manager by logging in with the example, typing some value in the input field and clicking "Sync". The value can also be inspected from the <a href="http://console.aws.amazon.com/cognito/home" target="_blank">AWS Console</a>
-<ol>
- 	<li>Click on <strong>Manage Federated Identities</strong></li>
- 	<li>Click on your identity</li>
- 	<li>Click on "<strong>Identity browser</strong>"</li>
- 	<li>For each "Identity ID" you can see the <strong>list of datasets</strong> by clicking on it</li>
- 	<li>Click on the <strong>dataset name</strong> to see its record (key-value pairs).</li>
-</ol>
-    </div>
-    <!-- /.box-body -->
+	</div>
+	<!-- /.box-body -->
 </div>

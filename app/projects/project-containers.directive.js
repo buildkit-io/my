@@ -9,10 +9,7 @@
 
 		$scope.$watch('project.containers', function(newValue) {
 			if (newValue) {
-				$scope.containers = angular.fromJson(newValue);
-				if (!$scope.containers) {
-					tasksService.listContainers($scope.project);
-				}
+				$scope.containers = $scope.project.containers;
 			}
 		});
 
@@ -66,7 +63,7 @@
 		};
 
 		$scope.getName = function(container) {
-			if (container.Labels['com.docker.compose.service']) {
+			if (container && container.Labels && container.Labels['com.docker.compose.service']) {
 				return container.Labels['com.docker.compose.service'];
 			}
 			if ($scope.isSecure(container) && container.NetworkSettings.Networks.secure.Aliases) {

@@ -11,9 +11,9 @@
             <li ng-class="{active: activeTab == hostname}"><a ng-href="#!/projects/{{hostname}}/view"><i class="fa fa-circle-o"></i> {{hostname}}</a></li>
         </ul>
     </li>
-    <li class="treeview" ng-class="{active: activeTab == 'tutorials'}">
+    <li class="treeview" ng-class="{active: !isProject}">
         <a ng-href="#!/tutorials">
-            <i class="fa fa-cart-plus"></i> <span>Tutorials</span>
+            <i class="fa fa-book"></i> <span>Tutorials</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-green">new</small>
             </span>
