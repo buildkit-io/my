@@ -4,9 +4,7 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">
-        <div class="row">
-            <div class="col-sm-12 col-md-12" ng-bind-html="tutorialData.description | unsafe"></div>
-        </div>
+    	<div class="col-sm-12 col-md-12" ng-bind-html="tutorialData.description | unsafe"></div>
     </div>
     <!-- /.box-body -->
     <div class="box-footer no-padding">
@@ -21,6 +19,7 @@
             </div>
         </div>
     </div>
+    
   <div class="modal" id="createProjectModal-{{tutorialData.name}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
 	  <div class="modal-dialog">
 	    <form name="newProject" role="form" ng-submit="onNewProjectSubmit(newProject.$valid)">
