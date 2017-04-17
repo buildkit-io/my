@@ -8,7 +8,12 @@
             </span>
         </a>
         <ul ng-repeat="(hostname, name) in projects" class="treeview-menu">
-            <li ng-class="{active: activeTab == hostname}"><a ng-href="#!/projects/{{hostname}}/view"><i class="fa fa-circle-o"></i> {{hostname}}</a></li>
+            <li ng-class="{active: activeTab == hostname}">
+            <a ng-href="#!/projects/{{hostname}}/view"><i class="fa fa-circle-o"></i> {{hostname}}
+            <span class="pull-right-container">
+              <i class="fa fa-trash-o pull-right remove" ng-click="deleteProject(hostname)"></i>
+            </span></a>
+            </li>
         </ul>
     </li>
     <li class="treeview" ng-class="{active: !isProject}">

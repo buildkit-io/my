@@ -36,6 +36,7 @@ firebaseService) {
             mergedUpdate['hostnames/' + hostname] = null;
 
             firebaseService.update(mergedUpdate).then(function() {
+            	tasksService.deleteProject({hostname: hostname});
                 deferred.resolve();
             }).
             catch (function(error) {

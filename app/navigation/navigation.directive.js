@@ -1,6 +1,6 @@
 /*globals angular firebase*/
 /*eslint-env browser */
-angular.module("bkApp").controller('navigationController', ['$scope', '$routeParams', '$firebaseObject', 'userService', function($scope, $routeParams, $firebaseObject, userService) {
+angular.module("bkApp").controller('navigationController', ['$scope', '$window', '$routeParams', '$firebaseObject', 'userService', 'projectsService', function($scope, $window, $routeParams, $firebaseObject, userService, projectsService) {
 	$scope.projects = [];
 	userService.waitForAuth().then(function(uid) {
 		$scope.projects = $firebaseObject(firebase.database().ref("users/" + uid + "/projects"));
@@ -16,6 +16,11 @@ angular.module("bkApp").controller('navigationController', ['$scope', '$routePar
 		} else {
 			$scope.isProject = false;
 		}
+	};
+	
+	$scope.deleteProject = function(projectToDelete) {
+		projectsService.deleteProject(projectToDelete);
+        $window.location.assign('/');
 	};
 
 	$scope.$on('$routeChangeSuccess', function(ev, newRoute) {

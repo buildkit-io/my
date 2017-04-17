@@ -1,10 +1,14 @@
 function Task(action, project) {
     this.action = action;
     this.project = {
-        hostname: project.hostname,
-        ami: project.ami,
-        createdBy: project.createdBy
+        hostname: project.hostname
     };
+    if (project.ami) {
+    	this.project.ami = project.ami;
+    }
+    if (project.createdBy) {
+    	this.project.createdBy = project.createdBy;
+    }
     this.status = Task.StatusTypes.PENDING;
     this.createdAt = "";
     this.logs = [];

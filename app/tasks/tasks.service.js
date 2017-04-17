@@ -5,7 +5,9 @@ angular.module("bkApp").factory('tasksService', ['firebaseService', function(fir
         var mergedUpdate = {};
         var taskId = firebaseService.getId();
         task.createdAt = firebaseService.getServerTime();
-        mergedUpdate['projects/' + task.project.hostname + '/tasks/'+taskId] = task;
+        if (task.action !== Task.ActionTypes.DELETE) {
+       		mergedUpdate['projects/' + task.project.hostname + '/tasks/'+taskId] = task;
+   		}
         mergedUpdate['tasks/' + taskId] = task;
         firebaseService.update(mergedUpdate).then(function() {
             console.log('Create task.');
