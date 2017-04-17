@@ -1,0 +1,41 @@
+<div class="navbar-custom-menu">
+	<ul class="nav navbar-nav" ng-if="project">
+		<li>
+			<a href="https://buildkit.eu.auth0.com/samlp/nfjX9kv2qs1f9TVB22SuDnPiFA6ieY6M" target="_blank">
+				<i class="fa fa-amazon"></i>
+				<span class="hidden-xs">AWS Console</span>
+			</a>
+		</li>
+		<li ng-show="project.status == 'running'">
+			<a ng-href="{{codeEditorUrl}}" target="_blank">
+				<i class="fa fa-code"></i>
+				<span class="hidden-xs">Code Editor</span>
+			</a>
+		</li>
+		<li ng-show="project.status == 'running'">
+ 			<a ng-href="{{terminalUrl}}" target="_blank">
+				<i class="fa fa-terminal"></i>
+				<span class="hidden-xs">Terminal</span>
+			</a>
+		</li>
+		<li ng-show="project.status == 'available' || project.status == 'stopped'">
+			<a href="" ng-click="startProject()">
+				<i class="fa fa-play"></i>
+				<span class="hidden-xs">Start</span>
+			</a>
+		</li>
+		<li ng-show="project.status == 'running'">
+			<a href="" ng-click="stopProject()">
+				<i class="fa fa-stop"></i>
+				<span class="hidden-xs">Stop</span>
+			</a>
+		</li>
+		<!-- Logout Button -->
+		<li>
+			<a>
+				<i class="fa fa-clock-o"></i>
+				<span>1:00</span>
+			</a>
+		</li>
+	</ul>
+</div>
