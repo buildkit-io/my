@@ -16,13 +16,15 @@ angular.module("bkApp").controller('tutorialController', ['$scope', '$location',
 		/*
 	     * Create New Project after compeleting modal form
 	     */
-		$scope.onNewProjectSubmit = function() {
-			projectsService.addProject($scope.project).then(function() {
-            	$location.path('/projects/' + $scope.project.hostname + '/view');
-            	// Hide Modal
-            	$('#createProjectModal-'+ $scope.tutorialData.name).modal('hide');
-            	$scope.onCreateProjectModalClose();
-        	});
+		$scope.onNewProjectSubmit = function(valid) {
+			if (valid) {
+				projectsService.addProject($scope.project).then(function() {
+	            	$location.path('/projects/' + $scope.project.hostname + '/view');
+	            	// Hide Modal
+	            	$('#createProjectModal-'+ $scope.tutorialData.name).modal('hide');
+	            	$scope.onCreateProjectModalClose();
+	        	});
+        	}
 		};
 		
 		/*
