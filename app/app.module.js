@@ -1,2 +1,2 @@
 /* global angular */
-angular.module("bkApp", ["ngRoute", "firebase"]);
+angular.module("bkApp", ["ngCookies", "ngRoute", "firebase"]);

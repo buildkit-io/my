@@ -26,6 +26,10 @@ angular.module("bkApp").controller('navigationController', ['$scope', '$window',
 	$scope.$on('$routeChangeSuccess', function(ev, newRoute) {
 		updateActiveTab();
 	});
+	
+	$scope.logout = function() {
+		userService.logout();
+	};
 
 	updateActiveTab();
 
