@@ -11,7 +11,7 @@ function Task(action, project) {
     }
     this.status = Task.StatusTypes.PENDING;
     this.createdAt = "";
-    this.logs = [];
+    this.email = "";
 }
 
 Task.prototype = {

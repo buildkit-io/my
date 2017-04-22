@@ -96,7 +96,10 @@ angular.module("bkApp").factory('userService', ['$cookies', '$q', '$window', '$l
 			getUser: function() {
 				var deferred = $q.defer();
 				this.waitForAuth().then(function(uid) {
-					deferred.resolve(firebaseService.getChildRef("users/" + uid));
+					var userRef = firebaseService.getObject("users/" + uid);
+					userRef.$loaded(function(user) {
+						deferred.resolve(user);
+					});
 				}).catch(function(error) {
 					deferred.reject(error);
 				});

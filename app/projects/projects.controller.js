@@ -5,9 +5,9 @@ angular.module("bkApp").controller('projectsController', ['$scope', '$routeParam
 
 	function($scope, $routeParams, $location, $firebaseObject, projectsService, userService) {
 		$scope.hostname = $routeParams.hostname;
-		$scope.project = null;
 		$scope.tutorial = null;
-
+		$scope.project = null;
+		
 		userService.waitForAuth().then(function(uid) {
 			$firebaseObject(firebase.database().ref("projects/" + $scope.hostname)).$bindTo($scope, "project").then(function() {
 				$scope.tutorial = $firebaseObject(firebase.database().ref("tutorials/" + $scope.project.tutorial));

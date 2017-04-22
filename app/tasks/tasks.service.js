@@ -18,8 +18,10 @@ angular.module("bkApp").factory('tasksService', ['firebaseService', function(fir
     };
     
     return {
-        createProject: function(project) {
-            addTask(new Task(Task.ActionTypes.CREATE, project));
+        createProject: function(project, email) {
+        	var task = new Task(Task.ActionTypes.CREATE, project);
+        	task.email = email;
+            addTask(task);
         },
         startProject: function(project) {
             addTask(new Task(Task.ActionTypes.START, project));
