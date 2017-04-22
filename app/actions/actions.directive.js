@@ -40,7 +40,9 @@ angular.module("bkApp").controller('actionsController', ['$scope', '$routeParams
 				$scope.project.status = Project.StatusTypes.PENDING;
 				$scope.project.$save().then(function() {
 					userService.getUser().then(function(user){
-						tasksService.createProject($scope.project, user.email);
+						$firebaseObject(firebase.database().ref("tutorials/"+$scope.project.tutorial)).$loaded(function(tutorial) {
+							tasksService.createProject($scope.project, user.email, tutorial.cloudformation);
+						});
 					});
 					
 				});
