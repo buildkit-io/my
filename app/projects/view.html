@@ -3,6 +3,18 @@
 has-icon="true" style="{{getStateStyle()}}"></content-header>
 <!-- Main content -->
 <section class="content">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+		<div class="info-box" ng-if="project.status='running'">
+            <span class="info-box-icon bg-green"><i class="fa fa-globe"></i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Public Address</span>
+              <span class="info-box-number" style="text-align:center">http://{{project.publicDNS}}</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+		</div>
+	</div>
     <div class="row">
         <!-- column -->
         <div class="col-md-12">
