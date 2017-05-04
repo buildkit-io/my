@@ -82,6 +82,8 @@
 
 </div>
 <!-- ./wrapper -->
+<!-- Insert this line above script imports  -->
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 
 <!-- jQuery 2.2.3 -->
 <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
@@ -155,5 +157,8 @@
 <script src="app/tutorials/tutorials.controller.js"></script>
 <script src="app/tutorials/tutorial.directive.js"></script>
 
+
+<!-- Insert this line after script imports -->
+<script>if (window.module) module = window.module;</script>
 </body>
 </html>
