@@ -37,12 +37,12 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="hold-transition skin-blue sidebar-mini" ng-app="bkApp">
+<body class="skin-blue fixed sidebar-mini" ng-app="bkApp">
 <div class="wrapper">
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index.html" class="logo">
+    <a class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><i class="fa fa-cloud"></i></span>
       <!-- logo for regular state and mobile devices -->
@@ -50,12 +50,7 @@
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
-      <!-- Sidebar toggle button-->
-      <a class="sidebar-toggle" data-toggle="offcanvas" role="button">
-        <span class="sr-only">Toggle navigation</span>
-      </a>
-      
-		<actions></actions>
+
     </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
@@ -63,7 +58,7 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- sidebar menu: : style can be found in sidebar.less -->
-      <navigation></navigation>
+      <desktop-navigation></desktop-navigation>
     </section>
     <!-- /.sidebar -->
   </aside>
@@ -76,12 +71,14 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 0.0.2
     </div>
-    <strong>Copyright &copy; 2016-2017 <a href="http://cloudeity.com">Cloudeity</a>.</strong> All rights
+    <strong>Copyright &copy; 2016-2017 Cloudeity.</strong> All rights
     reserved.
   </footer>
 
 </div>
 <!-- ./wrapper -->
+<!-- Insert this line above script imports  -->
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 
 <!-- jQuery 2.2.3 -->
 <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
@@ -134,15 +131,16 @@
 <script src="dist/js/buildkit.js"></script>
 <script src="app/app.module.js"></script>
 <script src="app/app.config.js"></script>
-<script src="app/app.routes.js"></script>
+<script src="app/desktop-app.routes.js"></script>
 <script src="app/firebase/firebase.service.js"></script>
 <script src="app/actions/actions.directive.js"></script>
+<script src="app/desktop-dashboard/desktop-dashboard.controller.js"></script>
+<script src="app/desktop-mount/mount.controller.js"></script>
+<script src="app/desktop-mount/mount.directive.js"></script>
 <script src="app/containers/container.service.js"></script>
 <script src="app/navigation/navigation.controller.js"></script>
-<script src="app/navigation/navigation.directive.js"></script>
-<script src="app/navigation/content-header.directive.js"></script>
+<script src="app/desktop-navigation/navigation.directive.js"></script>
 <script src="app/projects/project.js"></script>
-<script src="app/projects/project-doc.component.js"></script>
 <script src="app/projects/about-project.component.js"></script>
 <script src="app/projects/project-containers.directive.js"></script>
 <script src="app/projects/projects.service.js"></script>
@@ -156,5 +154,8 @@
 <script src="app/tutorials/tutorials.controller.js"></script>
 <script src="app/tutorials/tutorial.directive.js"></script>
 
+
+<!-- Insert this line after script imports -->
+<script>if (window.module) module = window.module;</script>
 </body>
 </html>

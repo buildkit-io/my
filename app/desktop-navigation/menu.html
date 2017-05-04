@@ -1,0 +1,16 @@
+<ul class="sidebar-menu">
+    <li class="header">MAIN NAVIGATION</li>
+    <li class="treeview active">
+        <a href="#" target="_self">
+            <i class="fa fa-briefcase"></i> <span>Projects</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul ng-repeat="(hostname, name) in projects" class="treeview-menu">
+            <li ng-class="{active: activeTab == hostname}">
+            <a ng-href="#!/desktop-projects/{{hostname}}/view"><i class="fa fa-circle-o"></i> {{hostname}}</a>
+            </li>
+        </ul>
+    </li>
+</ul>

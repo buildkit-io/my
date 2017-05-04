@@ -1,10 +1,10 @@
 /*globals angular firebase*/
 /*eslint-env browser */
-angular.module("bkApp").directive('navigation', function() {
+angular.module("bkApp").directive('desktopNavigation', function() {
 	return {
 		restrict: 'E',
 		scope: {},
 		controller: 'navigationController',
-		templateUrl: 'app/navigation/menu.html'
+		templateUrl: 'app/desktop-navigation/menu.html'
 	};
 });
