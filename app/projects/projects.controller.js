@@ -1,13 +1,13 @@
 /* global angular Project */
 /*eslint-env browser */
 /*globals firebase */
-angular.module("bkApp").controller('projectsController', ['$scope', '$routeParams', '$location', '$firebaseObject', 'projectsService', 'userService',
+angular.module("bkApp").controller('projectsController', ['$scope', '$routeParams', '$location', '$firebaseObject', 'projectsService', 'userService', 'tasksService',
 
-	function($scope, $routeParams, $location, $firebaseObject, projectsService, userService) {
+	function($scope, $routeParams, $location, $firebaseObject, projectsService, userService, tasksService) {
 		$scope.hostname = $routeParams.hostname;
 		$scope.tutorial = null;
 		$scope.project = null;
-		
+
 		userService.waitForAuth().then(function(uid) {
 			$firebaseObject(firebase.database().ref("projects/" + $scope.hostname)).$bindTo($scope, "project").then(function() {
 				$scope.tutorial = $firebaseObject(firebase.database().ref("tutorials/" + $scope.project.tutorial));
@@ -51,6 +51,25 @@ angular.module("bkApp").controller('projectsController', ['$scope', '$routeParam
 					default:
 						return Project.StateTypes.UNKNOWN;
 				}
+			}
+		};
+
+		$scope.startProject = function() {
+			if ($scope.project.status === Project.StatusTypes.AVAILABLE) {
+				$scope.project.status = Project.StatusTypes.PENDING;
+				$scope.project.$save().then(function() {
+					userService.getUser().then(function(user) {
+						$firebaseObject(firebase.database().ref("tutorials/" + $scope.project.tutorial)).$loaded(function(tutorial) {
+							tasksService.createProject($scope.project, user.email, tutorial.cloudformation);
+						});
+					});
+
+				});
+			} else {
+				$scope.project.status = Project.StatusTypes.PENDING;
+				$scope.project.$save().then(function() {
+					tasksService.startProject($scope.project);
+				});
 			}
 		};
 	}

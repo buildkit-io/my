@@ -5,6 +5,9 @@
 		<div class="col-md-6 col-md-offset-3" ng-if="project.status=='running'">
 			<center><mount></mount></center>
 		</div>
+		<div class="col-md-6 col-md-offset-3" ng-if="project.status == 'available' || project.status == 'stopped'">
+			<center><button type="button" class="btn btn-block btn-success btn-flat" ng-click="startProject()">Start Project</button></center>
+		</div>
 	</div>
     <!-- /.row -->
 </section>
