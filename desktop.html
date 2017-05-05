@@ -77,6 +77,12 @@
 
 </div>
 <!-- ./wrapper -->
+<script>
+var exec = require('child_process').exec;
+var remote = require('electron').remote;
+var execute = remote.getGlobal('execute');
+
+</script>
 <!-- Insert this line above script imports  -->
 <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 
