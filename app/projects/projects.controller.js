@@ -56,21 +56,16 @@ angular.module("bkApp").controller('projectsController', ['$scope', '$routeParam
 
 		$scope.startProject = function() {
 			if ($scope.project.status === Project.StatusTypes.AVAILABLE) {
-				$scope.project.status = Project.StatusTypes.PENDING;
-				$scope.project.$save().then(function() {
-					userService.getUser().then(function(user) {
-						$firebaseObject(firebase.database().ref("tutorials/" + $scope.project.tutorial)).$loaded(function(tutorial) {
-							tasksService.createProject($scope.project, user.email, tutorial.cloudformation);
-						});
+				userService.getUser().then(function(user) {
+					$firebaseObject(firebase.database().ref("tutorials/" + $scope.project.tutorial)).$loaded(function(tutorial) {
+						tasksService.createProject($scope.project, user.email, tutorial.cloudformation);
 					});
-
 				});
 			} else {
 				$scope.project.status = Project.StatusTypes.PENDING;
-				$scope.project.$save().then(function() {
-					tasksService.startProject($scope.project);
-				});
+				tasksService.startProject($scope.project);
 			}
+			$scope.project.status = Project.StatusTypes.PENDING;
 		};
 	}
 ]);

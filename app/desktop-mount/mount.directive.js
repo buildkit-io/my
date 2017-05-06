@@ -3,7 +3,9 @@
 angular.module("bkApp").directive('mount', function() {
 	return {
 		restrict: 'E',
-		scope: {},
+		scope: {
+			project: "<"
+		},
 		controller: 'mountController',
 		templateUrl: 'app/desktop-mount/mount.html'
 	};

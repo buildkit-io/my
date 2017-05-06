@@ -77,12 +77,8 @@
 
 </div>
 <!-- ./wrapper -->
-<script>
-var exec = require('child_process').exec;
-var remote = require('electron').remote;
-var execute = remote.getGlobal('execute');
-
-</script>
+<!-- Desktop JS code has to be included before anything else -->
+<script src="app/desktop.js"></script>
 <!-- Insert this line above script imports  -->
 <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 
